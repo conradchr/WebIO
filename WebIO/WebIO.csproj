@@ -187,7 +187,7 @@
     <Content Include="jquery_ui\jquery-ui.theme.css" />
     <Content Include="jquery_ui\jquery-ui.theme.min.css" />
     <Content Include="jquery_ui\LICENSE.txt" />
-    <Content Include="js\gui.js" />
+    <Content Include="js\dt_content.js" />
     <Content Include="js\jquery.js" />
     <Content Include="site.html" />
     <Content Include="site_ohne_jquery_ui.html" />
