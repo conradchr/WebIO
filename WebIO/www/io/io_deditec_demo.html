@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/jquery.flot.js"></script>
+<script type="text/javascript" language="javascript" src="../js/excanvas.js"></script>
+<script type="text/javascript" language="javascript" src="../js/excanvas.pack.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="user_info_init();load_params_from_deditec_cfg(page_type.default);navigator_show_hide();demo_digital_inputs_init();demo_digital_outputs_init();demo_analog_input_graphic_init();demo_analog_outputs_init();demo_temperature_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav">
+<ul>
+<li>
+<a title="" href="javascript:open_url('/config/config_general.html','','');">Configuration</a></li>
+<li class="active">
+<a title="" href="javascript:open_url('/io/io_general.html','','');">In-/Outputs</a></li>
+<div id="topnav-custom-right"><li>
+<a title="" href="javascript:open_url('/custom1/www/index.html','','');">Custom</a></li></div>
+<div id="topnav-logout-right">
+<li>
+<input type="hidden" id="logout" value="">
+<a title="" href="javascript:user_logout();">Logout</a></li>
+</div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left">
+<ul class="level1">
+<li ><a href="javascript:open_url('/io/io_general.html','','');">General</a></li>
+
+<li id ="navi_digital_io"><a href="javascript:open_url('/io/io_digital_io.html','','');">Digital I/O</a></li>
+
+<li id ="navi_analog_io" ><a href="javascript:open_url('/io/io_analog_io.html','','');">Analog I/O</a></li>
+
+<li id ="navi_temperature"><a href="javascript:open_url('/io/io_temperature.html','','');">Temperature</a></li>
+<li id ="navi_demo"><a href="javascript:open_url('/io/io_deditec_demo.html','','');">DEDITEC-DEMO</a></li>
+<li id ="navi_stepper_motor"><a href="javascript:open_url('/io/io_stepper_motor.html','','');">Stepper Motor</a></li>
+<li><a href="javascript:open_url('/io/io_config.html','','');">Configuration</a></li>
+</ul>
+
+</div>
+<div id="content">
+<h1>DEDITEC-DEMO</h1>
+<p>
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" NAME="product_cfgxx" VALUE="$$C_product_cfg_di$$" />
+<input type="hidden" NAME="productcfg_di" VALUE="$$C_product_cfg_di$$" />
+<input type="hidden" NAME="productcfg_do" VALUE="$$C_product_cfg_do$$" />
+<input type="hidden" NAME="productcfg_di_cnt" VALUE="$$C_product_cfg_di_cnt$$" />
+<input type="hidden" NAME="productcfg_ai" VALUE="$$C_product_cfg_ai$$" />
+<input type="hidden" NAME="productcfg_ao" VALUE="$$C_product_cfg_ao$$" />
+<input type="hidden" NAME="productcfg_temp" VALUE="$$C_product_cfg_temp$$" />
+<input type="hidden" NAME="productcfg_stepp" VALUE="$$C_product_cfg_stepp$$" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+
+
+<!-- Begin Content -->
+<form  name = "form0"  action="" >
+<div class="inputoutputueberschrift">
+    <!-- hier war die erste Tabelle -->
+    I/O Access to the module <input type="radio" value="1" name="activity" id="activity" class="radio">Activity
+
+<BR><BR>
+<div id="inputoutputueberschrift-left">Status from modul:</div><div id ="modul_status"></div>
+</div>
+</form>
+
+
+
+<form  name ="form1"  action="" >
+
+<div class="inputoutput">
+
+     <!-- hier war die 2. Tabelle -->
+<h3>Digital Inputs</h3>
+<ul id="input0_7" >
+<li class="input_head"><h4>Input 1  &nbsp;- &nbsp;8</h4></li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">1</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">2</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">3</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">4</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">5</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">6</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">7</li>
+<li><input type="checkbox" value="0" name="inputbit" class="checkbox">8</li>
+</ul>
+<div class="clr"></div>
+
+</div>
+
+<BR>
+
+<div class="inputoutput long">
+<h3>Digital Outputs</h3>
+<ul id="output_dm0_7">  
+<li class="input_head"><h4>Output 1  &nbsp;- &nbsp;8</h4></li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">1</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">2</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">3</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">4</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">5</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">6</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">7</li>
+<li><input type="checkbox" value="0" name="demo"  class="checkbox">8</li>
+</ul>
+<div class="clr"></div>
+
+
+<ul id="read_back_dm0_7">  
+<div class="clr"></div>
+
+</div>
+
+<BR>
+
+<div class="ai_graphic_demo">
+
+<table border="0">
+<h3>Analog Inputs</h3>
+<tr>
+<td width="170"><div id="A">Channel-A</div></td>
+<td width="170"><div id="B">Channel-B</div></td>
+<td width="170"><div id="C">Channel-C</div></td>
+<td 	       ><div id="D">Channel-D</div></td>
+</tr>
+
+</table>
+
+<BR>
+
+<table border="0">
+<tr>
+<td width="170" id="ai_graphic_channel1">
+<select name="DI channel">
+	<option selected>0</option>
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+</select>
+</td>
+
+
+<td width="170" id="ai_graphic_channel2">
+<select name="DI channel">
+	<option>0</option>
+	<option selected>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+</select>
+</td>
+
+
+<td width="170" id="ai_graphic_channel3">
+<select name="DI channel">
+	<option>0</option>
+	<option>1</option>
+	<option selected>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+</select>
+</td>
+
+
+<td width="80" id="ai_graphic_channel4">
+<select name="DI channel">
+	<option>0</option>
+	<option>1</option>
+	<option>2</option>
+	<option selected>3</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+
+</select>
+</td>
+</tr>
+</table>
+
+<BR>
+
+<table border="0">
+
+<tr>
+<td width="170" id ="ai_config1"><input type="button" name="Configure" value="Configure" onclick=""></td>
+<td width="170" id ="ai_config2"><input type="button" name="Configure" value="Configure" onclick=""></td>
+<td width="170" id ="ai_config3"><input type="button" name="Configure" value="Configure" onclick=""></td>
+<td id ="ai_config4"><input type="button" name="Configure" value="Configure" onclick=""></td>
+</tr>
+
+</table>
+
+<BR>
+
+<table border="0">
+<tr>
+<td style="background-color:white;width:600px;height:290px" id="space"><BR>
+<div id="plotspace1" style="width:590px;height:290px;"></div></td>
+</tr>
+
+</table>
+</div>
+
+<BR>
+
+<div class="analog_out">
+
+<table border="0">
+<h3>Analog Outputs</h3>
+<tr id="da1">	
+	<td  width="150px">DA1<div id ="channel1_name"></div></td>
+	<td><input name="da_channel1" size="7"></td>
+	<td  width="100px"><div id ="channel1_unity1"></div></td>
+	<td  width="100px"><input type="button" value="Set value" onclick ="demo_analog_outputs_value_set(1)"></input></td>
+	<td width="260px"><div id ="ao_channel1_readback"></div></td>
+	<td><div id ="channel1_unity2" ></div></td>
+</tr>
+
+<td height="5px"></td>
+
+<tr id="da2">	
+	<td  width="150px">DA2<div id ="channel2_name"></div></td>
+	<td><input name="da_channel2" size="7"></td>
+	<td  width="100px"><div id ="channel2_unity1"></div></td>
+	<td  width="100px"><input type="button" value="Set value" onclick ="demo_analog_outputs_value_set(2)"></input></td>
+	<td width="260px"><div id ="ao_channel2_readback"></div></td>
+	<td><div id ="channel2_unity2"></div></td>
+</tr>
+
+</table>
+</div>
+
+<BR>
+
+<div class="temperature">
+<h3>PT100</h3>
+<table border="0" >
+<tr>
+    	<td width="120px"><div id ="beschriftung1"></div></td>
+	<td width="175px"><div id ="Temp1" width="145px"></div></td>
+</tr>
+	<td height="10px"></td>
+<tr>
+	
+	<td><div id ="beschriftung2" ></div></td>
+	<td><div id ="Temp2" ></div></td>
+</tr>
+</table>
+</div>
+
+</form>
+
+<br><br>
+<!--
+<HR> 
+
+<input type="button" name="test" value="testplot_mit_AD_Werte" onclick="DAPI_execute('DapiADGetFifo',0,0,0,1,RET_ACTION_ANALOG_INPUTS_GRAPHIC,'XX1');">
+
+<input type="button" name="test_plot" value="testplot1" onclick="testplot1()">-->
+
+<!-- End Content -->
+
+</FORM>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

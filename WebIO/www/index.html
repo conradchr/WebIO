@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="js/deditec_general.js"></script>
+<script type="text/javascript" language="javascript">
+	$(function(){
+		var loginbox = $("#loginbox");
+		var usr = $(".username", loginbox)[0];
+		var pwd = $(".password", loginbox)[0];
+		
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		
+		var AjaxLogin = function (){
+			if (usr.value.length === 0 || pwd.value.length === 0) {
+				alert("Please enter an username and password");
+				return false;
+			}
+			$.ajax ({
+				url: "cgi-bin/weblogin",
+				type: "POST",
+				mimeType: "text/plain",
+				timeout: "5000",
+				data: {username: usr.value, password: pwd.value},
+				success: function (data) {
+					if (data != "OK") {
+						alert("Login failed. Try again.");
+						return;
+					}
+					// alert("Login was a success");
+					open_url('/config/config_general.html','','');
+				},
+				error: function () {
+					alert("An unexpected error has occurred. Probably your module is unavailable right now.");
+				}
+			});
+		}
+		
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		
+		var KeySubmitCheck = function (e) {
+			if (e.keyCode == 13) {
+				e.preventDefault();
+				AjaxLogin();
+			}
+		}
+		
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		// ---------------------------------------------------------------
+		$("#submit").click(function(e){
+			e.preventDefault();
+			AjaxLogin();
+		});
+		$(usr).keydown(KeySubmitCheck);
+		$(pwd).keydown(KeySubmitCheck);
+		
+		
+		$("#guest").click(function(e){
+			e.preventDefault();
+			usr.value = pwd.value = "gast";
+			AjaxLogin();
+		});
+	});
+</script>
+<link href="style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top" style="height:15px;padding-top:0"></div>
+
+<div id="right">
+<div id="content" style="margin: 0; background-color:#fff">
+<h1>Welcome to the RO-ETH WEB-interface</h1>
+<div class="border"></div>
+<img src="images/index_modul_grafik.png" style="float: left;"  width="450" alt="index_modul_grafik" />
+<br><br>
+
+<div id="login-guest-right">
+<a href="" id="guest">
+<img src="images/buttons/pfeil-rechts-transp.gif"><br>
+Login as Guest</a>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br>
+<div id="loginbox">
+<div id="login-user-label">Username</div>
+<div id="login-password-label">Password</div><br>
+<div id="login-user-input"><input type="text" class="username"></div>
+<div id="login-password-input"><input type="password" class="password"></div><br>
+</div>
+
+
+
+<div id="login-right">
+<a href="" id="submit">
+<img src="images/buttons/pfeil-rechts-transp.gif"><br>
+Login</a>
+</div>
+
+<br>
+
+<!-- End Content -->
+<!-- <button class="guest">Login as Guest</button> -->
+
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<!-- End FORM_START -->
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

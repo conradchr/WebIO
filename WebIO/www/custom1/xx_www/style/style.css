@@ -1,0 +1,16 @@
+.statistics {
+	font-weight: bold;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #cccccc;
+	text-align: center;
+}
+
+.statistics_headline {
+	font-weight: bold;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #777777;
+	text-align: center;
+	line-height: 16px;
+}

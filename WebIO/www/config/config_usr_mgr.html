@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title></title>
+	<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/deditec_config_scripts.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/deditec_usr_mgr.js"></script>
+	<script type="text/javascript" language="javascript" src="../js/deditec_usr_mgr_gui.js"></script>
+	<script type="text/javascript" language="javascript">
+	$(function(){
+		$("#content-height").hide();
+		
+		$("#field_usr_mgr_enabled").change( function(){
+			if (!$(this).is(':checked'))
+			{
+				$("#field_usr_mgr_username").attr("disabled", true);
+				$("#btn_set_pw").attr("disabled", true);
+				//$("#config-usr-mgr-session-valid-time").attr("disabled", true);
+				$("#btn_set_pw").show();
+				$("#pw_content").hide();
+			}
+			else
+			{
+				$("#field_usr_mgr_username").removeAttr("disabled");
+				$("#btn_set_pw").removeAttr("disabled");
+				//$("#config-usr-mgr-session-valid-time").removeAttr("disabled");
+			}
+		});
+		
+		$("#btn_set_pw").click(function(){
+			$("#btn_set_pw").hide();
+			$("#pw_content").show();
+		});
+	});
+	
+	function init()
+	{
+		if (is_STM2xx())
+		{
+			$("#modul_status").html("OK");
+			$("#content-height").show();
+			$("#pw_content").hide();
+			$("#btn_save").attr("href", "javascript:save_config_params(page_type.config_usr_mgr);");
+			$("#field_usr_mgr_enabled").change();
+		}
+		else
+		{
+			init_usr_mgr_linux();
+		}
+	}	
+	</script>
+	<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+	<link href="../style/deditec_usr_mgr.css" rel="stylesheet" type="text/css" />
+	<link href="../style/deditec_controls.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.config, leftNav.config.user, function(){init();load_config_params(page_type.config_usr_mgr);});user_info_init();">
+	<div id="page">
+		<div id="phone"></div>
+		<a href="#" title="#"><div id="logo"></div></a>
+		<div id="topnav"></div>
+		<div id="area">
+		   	<div class="footer-green"></div>
+			<div class="footer-blue"></div>
+			<div class="footer-yellow"></div>
+			<div class="footer-red"></div>
+		</div>
+		<div id="main">
+			<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+			<div id="user-status">
+			<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+			</div>
+			</div>
+			<div id="right">
+				<div id="left"></div>
+				<div id="content">
+					<h1>User-Manager</h1>
+					<p>
+
+						<!-- Begin FORM_START -->
+						<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+							<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+							<input type="hidden" NAME="update_param" VALUE="1" />
+							<input type="hidden" NAME="product_cfgxx" VALUE="$$C_product_cfg_di$$" />
+							<input type="hidden" NAME="productcfg_di" VALUE="$$C_product_cfg_di$$" />
+							<input type="hidden" NAME="productcfg_do" VALUE="$$C_product_cfg_do$$" />
+							<input type="hidden" NAME="productcfg_di_cnt" VALUE="$$C_product_cfg_di_cnt$$" />
+							<input type="hidden" NAME="productcfg_ai" VALUE="$$C_product_cfg_ai$$" />
+							<input type="hidden" NAME="productcfg_ao" VALUE="$$C_product_cfg_ao$$" />
+							<input type="hidden" NAME="productcfg_stepp" VALUE="$$C_product_cfg_stepp$$" />
+							<!-- End FORM_START -->
+
+							<!-- Begin FORM_END -->
+							<input type="hidden" name="$X" value="" />
+							<input type="hidden" id="session" />
+						</FORM>
+						<!-- End FORM_END -->
+
+
+						<!-- Begin Content -->
+
+						<div id="inputoutputueberschrift-left">Modul Status:</div>
+
+						<div id="modul_status">initialising...</div>
+						<br />
+
+						<div class="general">
+							<div id="content-height">
+								<div id="content-left">Webinterface requires login</div>
+								<label class="dt_switch">
+									<input type="checkbox" id='field_usr_mgr_enabled' />
+									<span></span>
+								</label>
+								<br>
+							
+								<div id="content-left">Username:</div>
+								<input type="text" size="40" id="field_usr_mgr_username" maxlength="16" value="" />
+								<br>
+								<input type="button" id="btn_set_pw" class="button editbutton" value="Set password">
+								
+								<div id="pw_content">
+									<div id="content-left">New password:</div>
+									<input type="password" size="40" id="field_usr_mgr_pw" maxlength="16" value="" />
+									<br>
+									
+									<div id="content-left">Confirm password:</div>
+									<input type="password" size="40" id="field_usr_mgr_pw_confirm" maxlength="16" value="" />
+									<br>
+								</div>
+							</div>
+						
+							<div id="userlist"></div><br>
+							
+							<div id="content-left">Session valid time</div>
+							<input type="text" id="config-usr-mgr-session-valid-time" VALUE="" />&nbsp;sec
+							
+							<br><br>
+							<h3>Notice: Changes apply after board restart</h3>
+							
+							<!-- Update-Button -->
+							<div id="update-rechts">
+								<a id="btn_save" href="javascript:update_session_time();">
+									<img src="../images/buttons/update-transp.gif">
+									<br><h4>Update parameter</h4>
+								</a>
+							</div>
+
+						</div>
+
+						<!-- End Content -->
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+	<br />
+</body>
+</html>
+
+

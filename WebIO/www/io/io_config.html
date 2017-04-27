@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_gui.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript">
+var indexList = new Array();
+var indexListLength;
+
+function onLoad()
+{	
+	get_board_info();
+	
+	// fill I/O type select
+	indexListLength = 0;
+	for (i=0; i!=IO_TYPE.TEXT.length; i++)
+	{
+		if (GetCountOfChannel(i) > 0)
+		{
+			$("#type_select").append(new Option(IO_TYPE.TEXT[i], i));
+			indexList[indexListLength] = i;
+			indexListLength++;
+		}
+		
+	}
+	
+	// --------------------------------
+	// I/O type + channel area init
+	
+	// change handler for select
+	$("#type_select").change( function () {
+		
+		index = $("#type_select").index();
+		count_ch = GetCountOfChannel(indexList[index]);
+		
+		// --------------------------------
+		// fill channel area select
+		$("#ch_area_select").empty();
+		select_index = 0;
+		
+		// fill options (ch 0..31)
+		if (count_ch >= 16)
+		{
+			$("#ch_area_select").append(new Option("CH 0..15", select_index++));
+		}
+		else
+		{
+			$("#ch_area_select").append(new Option("CH 0.." + ((count_ch&15)-1), select_index++));
+		}
+	
+		// fill options (ch 16..127)
+		for (i=16; i!=128; i+=16)
+		{
+			if (count_ch >= (i+16))
+			{
+				$("#ch_area_select").append(new Option("CH " + i + ".." + (i+15), select_index++));
+			}
+			else if (count_ch > i)
+			{
+				$("#ch_area_select").append(new Option("CH " + i + ".." + (i+(count_ch&15)), select_index++));
+			}
+		}
+		
+		if ($("#ch_area_select").children("option").length == 1)
+		{
+			$("#ch_area_select").attr("disabled", true);
+		}
+		else
+		{
+			$("#ch_area_select").removeAttr("disabled");
+		}
+		// --------------------------------
+		
+		ChangeHandler();
+	});
+	
+	if ($("#type_select").children("option").length == 1)
+	{
+		$("#type_select").attr("disabled", true);
+	}
+	else
+	{
+		$("#type_select").removeAttr("disabled");
+	}
+	
+	$("#ch_area_select").change( function() {
+		ChangeHandler()
+	});
+	
+	$("#type_select").change();	
+}
+
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+function ChangeHandler()
+{
+	var type_index = $("#type_select").index();
+	var ch_index = $("#ch_area_select").index();
+	
+	var ch_start;
+	var ch_end;
+		
+	var count_ch = GetCountOfChannel(indexList[type_index]);
+	
+	
+	var callback = function () {
+		$("#modul_status").html("OK");
+	};
+		
+	// webrequest
+	ch_start = ch_index*16;
+	((ch_start + 16) <= count_ch) ? ch_end = (ch_start+16) : ch_end = (ch_start + (count_ch & 15));
+	
+	key_and_element_string = "";
+	
+	$("#tab").empty();
+	width = new Array ( 50, 300 );
+	names = new Array ( "CH", "Name");
+	InsertHeaderInTable($("#tab"), 2, width, names);
+	
+	for (i=ch_start; i!=ch_end; i++)
+	{
+		InsertRowInTable(IO_TYPE.TYPE.CFG, $("#tab"), (i&15), i);
+		key_and_element_string += IO_TYPE.KEY[indexList[type_index]] + i + ";" ;
+		key_and_element_string += "ch_name" + (i&15) + ";";
+	}
+	InsertFooterInTable(IO_TYPE.TYPE.CFG, $("#tab"));
+	
+	webrequest_get_and_put_to_field_multiple(server_id.param_server, key_and_element_string, webrequest_option.none, error_option.only_alert, callback);
+	
+	// --------------------------------
+	// Save Button
+	$("#btn_save").click( function () {
+	
+		// webrequest
+		key_and_element_string = "";
+		
+		for (i=ch_start; i!=ch_end; i++)
+		{
+			key_and_element_string += IO_TYPE.KEY[indexList[type_index]] + i + ";" ;
+			//key_and_element_string += $("#ch_name" + (i&15)).val() + ";";
+			key_and_element_string += "ch_name" + (i&15) + ";";
+		}
+		
+		callback = function() {
+			alert("Parameter have been saved succesfully!");
+		};
+		
+		webrequest_send_from_field_multiple(server_id.param_server, key_and_element_string, webrequest_option.none, error_option.only_alert, callback);
+	});
+}
+</script>
+<link href="../style/deditec_controls.css" rel="stylesheet" type="text/css" />
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload ="loadGUI(topNav.io, leftNav.io.config, function(){onLoad();});user_info_init();get_board_info();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1>Configuration</h1>
+<p>
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<div id="cfg"></div>
+<!-- End FORM_START -->
+
+<!-- Begin Content -->
+<div id="inputoutputueberschrift-left">Status from modul:</div><label id ="modul_status"></label><br><br>
+<div id="inputoutputueberschrift-left">Select I/O type</div><select id="type_select"></select><br>
+<div id="inputoutputueberschrift-left">Select channel area</div><select id="ch_area_select"></select><br>
+<br>
+
+<table id="tab"></table>
+<!-- End Content -->
+
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+<!--<HR><br>
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

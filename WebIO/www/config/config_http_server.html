@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_config_scripts.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_config_scripts.js"></script>
+
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.config, leftNav.config.http);user_info_init();load_config_params(page_type.config_http_server);">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+
+
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+</div>
+
+
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+
+<div id="content">
+<h1>HTTP-Server</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+
+
+
+
+
+<!-- Begin Content --> 
+
+<div class="general">
+<div id="content-height">
+
+<br>
+<div id="content-left">
+index.html path:
+</div>
+<input type="text" size="60" id="board_index_path" value="" />
+<br><label style="color: #929292; font-size: 9pt; padding-left: 255px;">Demo: "/deditec/www/custom1/www/index_demo.html"</label>
+
+<br><br>
+
+<div id="update-rechts">
+<a href="javascript:save_config_params(page_type.config_http_server);"><img src="../images/buttons/update-transp.gif">
+<h4>Update parameter</h4></a>
+</div>
+
+
+<br>
+<br>
+<br>
+</div>
+</div>
+
+	  
+<!-- End Content -->
+
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_gui.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/delib.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_converter.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+<link href="../style/deditec_controls.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload ="loadGUI(topNav.io, leftNav.io.temp, function(){FormInit(IO_TYPE.TYPE.PT100)});user_info_init();get_board_info();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1>Temperature</h1>
+<p>
+
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<div id="cfg"></div>
+<div id="request"></div>
+<!-- End FORM_START -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+
+
+
+<!-- Begin Content -->
+<form  name = "form0"  action="" >
+<div id="inputoutputueberschrift-left">I/O Access to the module</div><div id ="modul_status2"><input type="radio" value="1" name="activity" id="activity" class="radio">Activity</div>
+<div id="inputoutputueberschrift-left">Status from modul:</div><div id ="modul_status"></div>
+</form>
+<br>
+<form  name ="form1"  action="">
+<div id="inputoutputueberschrift-left">Select channel area</div><select id="ch_area_select"></select><br>
+<br>
+<table id="tab"></table>
+</div>
+</form>
+</div>
+<!-- End Content -->
+
+
+</FORM>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

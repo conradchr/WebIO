@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/deditec_config_scripts.js"></script>
+<script type="text/javascript" src="/js/deditec_general.js"></script>
+<script type="text/javascript" src="/js/deditec_webrequest.js"></script>
+<script type="text/javascript" src="/custom1/www/js/deditec_m2m_destination.js"></script>
+<script type="text/javascript" src="/custom1/www/js/deditec_m2m_functions.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.special, leftNav.m2m.dest, function(){load_config_params(page_type.special);onLoad();});user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+
+<div id="content">
+<h1>M2M - Destination</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+<!-- Begin Content --> 
+<div class="general">
+<div id="content-height">
+<!--============================================================================-->
+<!--============================================================================-->
+<!--dest config-->
+<input type="hidden" id="m2m_dest_hidden_count" value="">
+
+<input type="hidden" id="m2m_dest0_hidden_name" value="">
+<input type="hidden" id="m2m_dest0_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest0_hidden_port" value="">
+<input type="hidden" id="m2m_dest0_hidden_timeout" value="">
+
+<input type="hidden" id="m2m_dest1_hidden_name" value="">
+<input type="hidden" id="m2m_dest1_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest1_hidden_port" value="">
+<input type="hidden" id="m2m_dest1_hidden_timeout" value="">
+
+<input type="hidden" id="m2m_dest2_hidden_name" value="">
+<input type="hidden" id="m2m_dest2_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest2_hidden_port" value="">
+<input type="hidden" id="m2m_dest2_hidden_timeout" value="">
+
+<input type="hidden" id="m2m_dest3_hidden_name" value="">
+<input type="hidden" id="m2m_dest3_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest3_hidden_port" value="">
+<input type="hidden" id="m2m_dest3_hidden_timeout" value="">
+
+<input type="hidden" id="m2m_dest4_hidden_name" value="">
+<input type="hidden" id="m2m_dest4_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest4_hidden_port" value="">
+<input type="hidden" id="m2m_dest4_hidden_timeout" value="">
+
+<label style="color: #a2a2a2; font-size: 9pt;">On this page you can configure the receiver of the M2M communication. </label><br><br>
+
+<label style="width: 120px; display: inline-block;">Destination:</label>
+<select id="m2m_source_select_dest" style="width: 220px;" onChange="change_destination_id();" disabled="disabled"></select><br>
+
+<div class="border_webinterface"></div>
+
+<label style="width: 120px; display: inline-block;">Name:</label>
+<input type="textfield" id="m2m_destX_name" style="width: 220px;" maxLength="20"><br>
+
+<label style="width: 120px; display: inline-block;">&nbsp;</label>
+<input type="button" id="m2m_source_button_test_communication" value="Test Communication" style="width: 180px" OnClick="javascript: test_communication();"><br>
+<input type="hidden" id="test_com_status" value="">
+
+<label style="width: 120px; display: inline-block;">IP-Address:</label>
+<input type="textfield" id="m2m_destX_ip_addr" style="width: 220px;"><br>
+
+<label style="width: 120px; display: inline-block;">Port:</label>
+<input type="textfield" id="m2m_destX_port" style="width: 110px;"><br>
+
+<label style="width: 120px; display: inline-block;">Timeout:</label>
+<input type="textfield" id="m2m_destX_timeout" style="width: 110px;">
+
+
+<div class="border_webinterface"></div>
+
+<br>
+<div id="update-rechts">
+<a href="javascript:save_settings_to_cfg();"><img src="../images/buttons/update-transp.gif">
+<br><h4>Save parameter</h4></a>
+</div>
+<!--============================================================================-->
+<!--============================================================================-->
+</div>
+</div>  
+<!-- End Content -->
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<br>
+<br>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

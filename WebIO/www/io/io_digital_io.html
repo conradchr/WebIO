@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload ="loadGUI(topNav.io, leftNav.io.d_general);user_info_init();get_board_info();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1>Digital I/O</h1>
+<p>
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<div id="cfg"></div> 
+<!-- Begin Content -->
+<div class="product">
+<p>This section contains the following topics:<br><br>
+<ul><li>Digital Inputs</li>
+<li>Digital Inputs Counter</li>
+<li>Digital Inputs Graphic</li>
+<li>Digital Outputs</li></ul></p>
+</div> 
+<!-- End Content -->
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+<!--<HR><br>
+<input type="text" NAME="product_cfg_di" VALUE="$$C_product_cfg_di$$" />-->
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

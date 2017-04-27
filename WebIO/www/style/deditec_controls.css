@@ -1,0 +1,256 @@
+﻿    
+	
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* ON/OFF SWITCH */
+	
+	/*http://proto.io/freebies/onoff/*/
+	
+	.onoffswitch {
+    position: relative; width: 100px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    }
+    .onoffswitch-checkbox {
+    display: none;
+    }
+    .onoffswitch-label {
+    /*display: block; overflow: hidden; cursor: pointer;*/
+	display: block; overflow: hidden;
+    border: 0px solid #999999; border-radius: 0px;
+    }
+    .onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner > span {
+    display: block; float: left; position: relative; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    }
+    .onoffswitch-inner .onoffswitch-active {
+    padding-left: 15px;
+    background-color: #FFFFFF; color: #FFFFFF;
+    }
+    .onoffswitch-inner .onoffswitch-inactive {
+    padding-right: 15px;
+    background-color: #FFFFFF; color: #FFFFFF;
+    text-align: right;
+    }
+    .onoffswitch-switch {
+    display: block; width: 40px; margin: 0px; text-align: center;
+    border: 0px solid #999999;border-radius: 0px;
+    position: absolute; top: 0; bottom: 0;
+    }
+    .onoffswitch-active .onoffswitch-switch {
+    background: #1CBA41; left: 0;
+    }
+    .onoffswitch-inactive .onoffswitch-switch {
+    background: #6D0A12; right: 0;
+    }
+    .onoffswitch-active .onoffswitch-switch:before {
+    content: " "; position: absolute; top: 0; left: 40px;
+    border-style: solid; border-color: #1CBA41 transparent transparent #1CBA41; border-width: 15px 10px;
+    }
+    .onoffswitch-inactive .onoffswitch-switch:before {
+    content: " "; position: absolute; top: 0; right: 40px;
+    border-style: solid; border-color: transparent #6D0A12 #6D0A12 transparent; border-width: 15px 10px;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+    }
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* Button */
+	.button {
+		height: 24px;
+		color: #ffffff;
+		border: 0;
+		font-weight: bold;
+		font-family: Trebuchet, Arial, sans-serif;
+		font-size: 14px;
+		cursor: pointer;
+	}
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* ON Button */
+	.onbutton {
+		background: #1CBA41;
+		float: left;
+		margin: 0 0 0 15px;
+		width: 80px;
+	}
+	.onbutton:hover, .onbuttonAll:hover {
+		background: #1CDA41;
+	}
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* OFF Button */
+	.offbutton {
+		background: #6D0A12;
+		float: right;
+		margin: 0 15px 0 0;
+		width: 80px;
+	}
+	.offbutton:hover, .offbuttonAll:hover {
+		background: #AD0A12;
+	}
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* Edit Button */
+	.editbutton {
+		background: #747474;
+		width: 120px;
+	}
+	.editbutton:hover {
+		background: #949494;
+	}
+	
+	.editbutton:disabled {
+		background: #d5d5d5;
+	}
+	
+	.editbutton:disabled:hover {
+		cursor: default;
+	}
+	
+	/* ************************************ */
+	/* ************************************ */
+	/* Edit Button */
+	.small {
+		width: 60px;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*--buttons--------------------------------------------------------------------*/
+	.btn_rb
+	{
+		height: 24px;
+		width: 81px;
+	}
+
+	.btn_rb_off
+	{
+		position:absolute;
+		background: url(/images/buttons/readback_off.png) no-repeat;
+		height: 24px;
+		width: 81px;
+	}
+
+	.btn_rb_on
+	{
+		position:absolute;
+		background: url(/images/buttons/readback_on.png) no-repeat;
+		height: 24px;
+		width: 81px;
+	}
+	.btn
+	{
+		height: 24px;
+		width: 159px;
+	}
+	
+	/* ************************************ */
+
+	.btn_on
+	{
+		position:absolute;
+		margin-left: 76px;
+		background: url(/images/buttons/button_on.png) no-repeat;
+		height: 24px;
+		width: 83px;
+	}
+	.btn_on:hover
+	{
+		cursor: pointer;
+		background: url(/images/buttons/button_on_hover.png) no-repeat;
+	}
+	.btn_on_all
+	{
+		background: url(/images/buttons/button_on_all.png) no-repeat;
+	}
+	.btn_on_all:hover
+	{
+		background: url(/images/buttons/button_on_all_hover.png) no-repeat;
+	}
+	
+	/* ************************************ */
+	.btn_off
+	{
+		position:absolute;
+		background: url(/images/buttons/button_off.png) no-repeat;
+		height: 24px;
+		width: 83px;
+	}
+
+	.btn_off:hover
+	{
+		cursor: pointer;
+		background: url(/images/buttons/button_off_hover.png) no-repeat;
+	}
+	.btn_off_all
+	{
+		background: url(/images/buttons/button_off_all.png) no-repeat;
+	}
+	.btn_off_all:hover
+	{
+		background: url(/images/buttons/button_off_all_hover.png) no-repeat;
+	}
+	
+	
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*-----------------------------------------------------------------------------*/
+	/*--switch--------------------------------------------------------------------*/
+	
+	.dt_switch input {
+		display: none;
+	}
+	
+	.dt_switch:hover {
+		cursor: pointer;
+	}
+	
+	.dt_switch span {
+		/*position:absolute;*/
+		float: left;
+		height: 24px;
+		width: 81px;
+		display: block;
+		background: url(/images/buttons/readback_off.png) no-repeat;
+	}
+
+	.dt_switch input:checked + span {
+		background: url(/images/buttons/readback_on.png) no-repeat;
+	}
+
+	.dt_switch input:disabled:not(:checked) + span{
+		cursor: default;
+		background: url(/images/buttons/readback_off_disabled.png) no-repeat;
+	}	
+	
+	.dt_switch input:disabled:checked + span {
+		cursor: default;
+		background: url(/images/buttons/readback_on_disabled.png) no-repeat;
+	}
+	
+	
+	

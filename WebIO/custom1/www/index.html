@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<!--
+<script type="text/javascript" src="/js/jquery.js"></script>
+-->
+<script type="text/javascript" src="/custom1/www/js/jquery.js"></script>
+<script type="text/javascript" src="/custom1/www/js/jquery_ui.js"></script>
+<script type="text/javascript" src="/js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+<link href="/custom1/www/style/jquery_ui.css" rel="stylesheet" type="text/css" />
+<style>
+.colorpickerbox h3 {
+	margin-top: 10px;
+}
+
+.colorpickerbox {
+	width: 100%;
+}
+
+.colorpicker {
+	width: 55%; 
+	float: left; 
+	margin-top: 10px;
+}  
+
+.colorpreview {
+	width: 30%; 
+	float: left;
+	margin-top: 41px;
+}
+
+.tb {
+	float:left; 
+	width: 30px;
+	text-align: center;
+}
+
+.red, .green, .blue {
+	float: left;
+	width: 250px;
+	margin: 3px;
+	margin-left: 10px;
+}
+
+.swatch {
+	width: 100px;
+	height: 75px;
+	margin-top: 40px;
+	background-image: none;
+}
+
+.red .ui-slider-range { background: #ef2929; }
+.red .ui-slider-handle { border-color: #ef2929; }
+.green .ui-slider-range { background: #8ae234; }
+.green .ui-slider-handle { border-color: #8ae234; }
+.blue .ui-slider-range { background: #729fcf; }
+.blue .ui-slider-handle { border-color: #729fcf; }
+</style>
+  
+  
+<script>
+
+var COLORS = 10;
+
+function hexFromRGB(r, g, b) 
+{
+	var hex = [
+		r.toString(16),
+		g.toString(16),
+		b.toString(16)
+	];
+	$.each(hex, function(nr, val) {
+		if (val.length === 1) {
+			hex[nr] = "0" + val;
+		}
+	});
+	return hex.join("").toUpperCase();
+}
+
+function refreshSwatch(id) 
+{
+	var red = $("#sl_red"+id).slider("value"),
+	green = $("#sl_green"+id).slider("value"),
+	blue = $("#sl_blue"+id).slider("value"),
+	hex = hexFromRGB(red, green, blue);
+	$("#swatch"+id).css("background-color", "#" + hex);
+}
+
+var SAVE = 1;
+var LOAD = 2;
+
+function paramHandler(cmd)
+{
+	var request = "";
+	request += "cust1_param_color_interval_ms;param_color_interval_ms;";
+	request += "cust1_param_motor_pwm;param_motor_pwm;";
+	
+	for (i=0; i!=COLORS; i++)
+	{
+		request += "cust1_param_red"+i+";tb_red"+i+";";
+		request += "cust1_param_green"+i+";tb_green"+i+";";
+		request += "cust1_param_blue"+i+";tb_blue"+i+";";
+		request += "cust1_param_enabled"+i+";enabled"+i+";";
+	}
+	
+	switch (cmd)
+	{
+		case SAVE: 
+			webrequest_send_from_field_multiple(server_id.param_server, request, webrequest_option.none, error_option.only_alert);
+			break;
+			
+		case LOAD:
+			webrequest_get_and_put_to_field_multiple(server_id.param_server, request, webrequest_option.none, error_option.only_alert, function(){
+				for (i=0; i!=COLORS; i++)
+				{
+					$("#tb_red"+i).change();
+					$("#tb_green"+i).change();
+					$("#tb_blue"+i).change();
+				}
+			});
+			break;
+	}
+}
+
+
+$(function() {
+
+	var getColorPicker = function(id){
+		content = "";
+
+		
+		content += "<div class=\"colorpickerbox\">";
+		content += "<div class=\"colorpicker\">";
+		content += "<h3>Color "+(id+1)+"</h3>";
+		content += "<div style=\"clear: both\" ><input class=\"cb\" type=\"checkbox\" id=\"enabled"+id+"\" > Enabled</input></div>";
+		content += "<input class=\"tb\" id=\"tb_red"+id+"\" />";
+		content += "<div class=\"red\" id=\"sl_red"+id+"\"></div><br>";
+		content += "<input class=\"tb\" id=\"tb_green"+id+"\" />";
+		content += "<div class=\"green\" id=\"sl_green"+id+"\"></div><br>";
+		content += "<input class=\"tb\" id=\"tb_blue"+id+"\" />";
+		content += "<div class=\"blue\" id=\"sl_blue"+id+"\"></div><br>";
+		content += "</div>";
+		content += "<div class=\"colorpreview\">";
+		content += "<div id=\"swatch"+id+"\" class=\"ui-widget-content ui-corner-all swatch\"></div>";
+		content += "</div>";
+		content += "</div>";
+
+		return content;
+	};
+
+	
+	$("#cplist").empty();
+	for (i=0; i!=COLORS; i++)
+	{
+		$("#cplist").append(getColorPicker(i));	
+	}
+
+	var handler = function(){
+		var id = (this.id).replace("sl", "tb");
+		var val = $("#"+this.id).slider("value");
+		$("#"+id).val(val);
+
+		var pos = (this.id).length - 1;
+		id = (this.id).substring(pos, pos+1);
+		refreshSwatch(id);
+	};
+
+	$(".red, .green, .blue").slider({
+		orientation: "horizontal",
+		range: "min",
+		max: 255,
+		value: 127,
+		slide: handler,
+		change: handler
+	});
+
+	$(".tb").attr("type", "text");
+	$(".tb").attr("maxlength", 3);
+	$(".tb").change(function(){
+		var id = (this.id).replace("tb", "sl");
+		var val = $("#"+this.id).val();
+		$("#"+id).slider("value", val);
+	});	
+	
+	paramHandler(LOAD);
+});
+</script>
+
+</head>
+<body class="home" <!--onload="user_info_init();-->">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav">
+<ul>
+<li>
+<a title="" href="javascript:open_url('/config/config_general.html','','');">Configuration</a></li>
+<li>
+<a title="" href="javascript:open_url('/io/io_general.html','','');">In-/Outputs</a></li>
+<li>
+<a title="" href="javascript:open_url('/monitoring/monitoring_general.html','','');">Monitoring</a></li>
+<div id="topnav-custom-right"><li class="active">
+<a title="" href="javascript:open_url('/custom1/www/index.html','','');">Custom</a></li></div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: $$C_prodcut_name$$ ($$C_board_name$$)
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left">
+<ul class="level1">
+<li class="active"><a href="javascript:open_url('/custom1/www/index.html','','');">Status</a></li>
+</ul>
+</div>
+
+<div id="content">
+<h1>Status</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+<!-- Begin Content --> 
+<div class="general">
+<div id="content-height">
+<div id="content-left">Project Name</div>
+<div id="content-left">$$C_cust1_product_name$$</div><br>
+
+<div id="content-left">Firmware Version</div>
+<div id="content-left">V $$C_cust1_fw_rev$$</div><br><br>
+<!--
+<div id="content-left">Interval color-change</div>
+<div id="content-left"><input type="text" id="param_color_interval_ms" style="width:50px;" /> ms</div><br>
+-->
+<div id="content-left">Motor speed (PWM)</div>
+<div id="content-left"><input type="text" id="param_motor_pwm" style="width:50px;" /> %</div><br>
+
+
+<div id="cplist"></div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<!--<div id="update-rechts"><a href="javascript:open_url('/custom1/www/index.html','y','');"><img src="../images/buttons/update-transp.gif"></div>-->
+<div id="update-rechts"><a href="javascript:paramHandler(SAVE);"><img src="../images/buttons/update-transp.gif"></div>
+
+<div id="update-rechts"><h4>Update parameter</h4></a></div>
+</div>
+</div>
+<!-- End Content -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

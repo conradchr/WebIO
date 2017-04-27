@@ -1,0 +1,83 @@
+#log_scroll {
+	height: 300px;
+	width: 100%;
+	overflow: auto;
+	border: 1px solid #aaaaaa;
+}
+#log_table {
+	display: block;
+	width: 100%;
+	background-color: #ffffff;
+	vertical-align: top;
+}
+#log_tbody {
+	width: 100%;
+	display: inline-table;
+}
+#log_tbody td, #log_tbody th {
+	padding: 0px 3px;
+	border-bottom: 1px solid #aaaaaa;
+	margin: 0;
+}
+#log_tbody td {
+	line-height: 16px;
+	vertical-align: top;
+}
+#log_tbody .time, #log_tbody .app {
+	white-space: nowrap;
+	border-right: 1px solid #aaaaaa;
+}
+#log_tbody td .time {
+	text-align: center;
+}
+#log_tbody td .app, #log_tbody td .info {
+	text-align: left;
+}
+#log_tbody .info {
+	width: 100%;
+}
+#log_navi, #log_action {
+	padding: 0;
+	margin: 0;
+	margin-left: 5px;
+	position: static;
+	display: block;
+	width: 100%;
+	clear: right;
+}
+#log_navi li {
+	border: 1px solid #aaaaaa;
+	background-color: #dddddd;
+	border-bottom: none;
+	margin: -1px 5px 0 -1px;
+	padding: 0 3px 0 3px;
+	margin-bottom: 0;
+	border-radius: 5px 5px 0 0;
+}
+#log_navi .act {
+	background-color: #ffffff;
+	border: 1px solid #aaaaaa;
+	border-bottom: none;
+	margin: -3px 3px 0 -3px;
+	padding: 2px 5px 0 5px;
+	margin-bottom: 0;
+	border-radius: 7px 7px 0 0;
+}
+#log_navi li, #log_action li {
+	display: inline;
+	clear: none;
+	cursor: pointer;
+}
+#log_action li {
+	margin-right: 10px;
+}
+#log_action a {
+	cursor: pointer;
+}
+#log_table .status {
+	height: 300px;
+	border: 0;
+	background-color: #f5f5f5;
+	vertical-align: middle;
+	text-align: center;
+}

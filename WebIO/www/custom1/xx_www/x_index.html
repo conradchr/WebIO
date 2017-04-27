@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_gui.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/delib.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_converter.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="user_info_init();get_board_info();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav">
+<ul>
+<li>
+<a title="" href="javascript:open_url('/config/config_general.html','','');">Configuration</a></li>
+<li>
+<a title="" href="javascript:open_url('/io/io_general.html','','');">In-/Outputs</a></li>
+<div id="topnav-custom-right"><li class="active">
+<a title="" href="javascript:open_url('/custom1/www/index.html','','');">Custom</a></li></div>
+<div id="topnav-logout-right">
+<li>
+<input type="hidden" id="logout" value="">
+<a title="" href="javascript:user_logout();">Logout</a></li>
+</div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left">
+<ul class="level1">
+<li class="active"><a href="javascript:open_url('/custom1/www/index.html','','');">Status</a></li>
+</ul>
+</div>
+
+<div id="content">
+<h1>Status</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+
+
+
+
+
+<!-- Begin Content --> 
+
+<div class="general">
+<div id="content-height">
+<p>To use this feature, please upload a custom firmware (<a title="" href="javascript:open_url('/config/config_fw_update.html','','');">-> Custom Firmware Upload</a>)</p>
+
+
+
+
+
+</div>
+</div>
+
+	  
+<!-- End Content -->
+
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<br>
+<br>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

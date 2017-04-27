@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/delib.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_converter.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript">
+function canSend(can_id, can_data) {
+	can_string = can_id + "#" + can_data;
+	webrequest_send(server_id.exec_srv, "cansend_can0", can_string, webrequest_option.none, error_option.only_alert);
+}
+
+function canInit(can_baudrate) {
+	if (typeof can_baudrate != "undefined") {
+		webrequest_send(server_id.exec_srv, "caninit_can0", can_baudrate, webrequest_option.none, error_option.only_alert);
+	}
+	else {
+		webrequest_send(server_id.exec_srv, "caninit_can0", "100000", webrequest_option.none, error_option.only_alert);
+	}
+}
+</script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="user_info_init();load_params_from_deditec_cfg(page_type.default);">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav">
+<ul>
+<li>
+<a title="" href="javascript:open_url('/config/config_general.html','','');">Configuration</a></li>
+<li class="active">
+<a title="" href="javascript:open_url('/io/io_general.html','','');">In-/Outputs</a></li>
+<div id="topnav-custom-right"><li>
+<a title="" href="javascript:open_url('/custom1/www/index.html','','');">Custom</a></li></div>
+<div id="topnav-logout-right">
+<li>
+<input type="hidden" id="logout" value="">
+<a title="" href="javascript:user_logout();">Logout</a></li>
+</div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left">
+<ul class="level1">
+<li><a href="javascript:open_url('/io/io_general.html','','');">General</a></li>
+<li id ="navi_digital_io"><a href="javascript:open_url('/io/io_digital_io.html','','');">Digital I/O</a></li>
+<li id ="navi_analog_io" ><a href="javascript:open_url('/io/io_analog_io.html','','');">Analog I/O</a></li>
+<li id ="navi_temperature"><a href="javascript:open_url('/io/io_temperature.html','','');">Temperature</a></li>
+<li id ="navi_stepper_motor"><a href="javascript:open_url('/io/io_stepper_motor.html','','');">Stepper Motor</a></li>
+<li><a href="javascript:open_url('/io/io_config.html','','');">Configuration</a></li>
+</ul>
+</div>
+<div id="content">
+<h1>Test Page</h1>
+<p>
+
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" NAME="product_cfgxx" VALUE="0" />
+<input type="hidden" NAME="productcfg_di" VALUE="0" />
+<input type="hidden" NAME="productcfg_do" VALUE="16" />
+<input type="hidden" NAME="productcfg_di_cnt" VALUE="0" />
+<input type="hidden" NAME="productcfg_ai" VALUE="0" />
+<input type="hidden" NAME="productcfg_ao" VALUE="0" />
+<input type="hidden" NAME="productcfg_temp" VALUE="0" />
+<input type="hidden" NAME="productcfg_stepp" VALUE="0" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+
+
+
+<!-- Begin Content -->
+
+<form  name = "form0"  action="" >
+<div class="inputoutputueberschrift">
+    <!-- hier war die erste Tabelle -->
+
+
+<div id="inputoutputueberschrift-left">Status from modul:</div><div id ="modul_status"></div>
+
+</div>
+</form>
+
+<form name="form1">
+
+	<textarea id = "XX1" cols ="68" rows ="14" value=''></textarea><BR>
+	<input type="button" value="DapiReadByte_and_put_to_field" onclick="DapiReadByte_and_put_to_field(0, 0x0020, document.getElementById('XX1'), 2)">  <input type="button" value="clear" onclick="XX1.value = ''">
+	<br><br>
+	<input type="button" value="DapiReadLong_and_put_to_field" onclick="DapiReadLong_and_put_to_field(0, 0x0020, document.getElementById('XX1'), 2)">
+	<br><br>
+	<input type="button" value="DapiReadWord_and_put_to_field" onclick="DapiReadWord_and_put_to_field(0, 0x0020, document.getElementById('XX1'), 2)">
+	<BR><BR><BR>
+	<input type="button" value="DapiReadLong_and_call_response_handler" onclick="DapiReadLong_and_call_response_handler(0, 0x0020,  document.getElementById('value_holder'), 2, 'RET_ACTION_DI0_31')">
+	<input type="text" id="value_holder" value="">
+	<textarea name = "XX2" cols ="68" rows ="14" ></textarea><BR>
+<input type="button" value="function2"onclick="call_function2()">
+
+<br><br><br><br><br>
+
+<!-- delib.js -->
+<h1>dapiDOSet8</h1><br>
+<input type="button" value="DapiDOSet8" onclick="DapiDOSet8(0, 0, 0)"> Parameter: (0, 0, 0)
+
+<br><br>
+
+<input type="button" value="DapiDOSet8" onclick="DapiDOSet8(0, 0, 0xFF)"> Parameter: (0, 0, 255)
+
+<br><br>
+
+<input type="button" value="DapiDOSet8" onclick="DapiDOSet8(0, document.getElementById('field_ch_set8').value, document.getElementById('field_data_set8').value)"> Ch.:<input id="field_ch_set8" type="text" value="0"> Data: <input id="field_data_set8" type="text" value="255">
+
+<br><br>
+<h1>dapiDOGet8</h1><br>
+<input type="button" value="DapiDOGet8" onclick="DapiDOGet8(0, document.getElementById('field_ch_get8').value)"> Ch.:<input id="field_ch_get8" type="text" value="0"> 
+ 
+<br><br>
+<h1>CAN</h1><br>
+<input type="button" value="CanInit" onclick="canInit();"><br><br>
+
+CAN-ID <input type="text" id="can_id" /><br>
+CAN-Msg <input type="text" id="can_msg" /><br>
+<input type="button" value="CanSend" onclick="canSend($('#can_id').val(), $('#can_msg').val());"><br><br>
+
+<input type="button" value="CanSendRelaisOn" onclick="canSend('100', 'ffff');"><br>
+<input type="button" value="CanSendRelaisOff" onclick="canSend('100', '0000');"><br>
+ 
+ 
+<!--
+<br><br>
+<h1>dapiDOGet8</h1><br>
+<input type="button" value="DapiDOGet8" onclick="DAPI_execute(DapiDIGet8,0,0,0,0,di, DAPI_execute_feld)"> Ch.:<input id="field_ch_get8" type="text" value="0"> 
+<input type="text" id="DAPI_execute_feld" value="">-->
+
+
+</form>
+<!-- End Content -->
+
+</FORM>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

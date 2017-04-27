@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<!--
+<script type="text/javascript" src="/js/deditec_control.js"></script>
+<script type="text/javascript" src="/js/deditec_functions.js"></script>
+-->
+<script type="text/javascript" src="/js/deditec_general.js"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/deditec_webrequest.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript">
+function cust1_read_active_checkbox_and_save_config()
+{
+	if (document.getElementById("active_checkbox").checked == true)
+		document.getElementsByName("C_cust1_converter_active")[0].value = 1;
+	else
+		document.getElementsByName("C_cust1_converter_active")[0].value = 0;
+		
+	open_url('/custom1/www/index.html','y','');
+}
+
+function cust1_set_active_checkbox()
+{
+	if (document.getElementsByName("C_cust1_converter_active")[0].value == 1)
+		document.getElementById("active_checkbox").checked = true;
+	else
+		document.getElementById("active_checkbox").checked = false;
+}
+</script>
+<body class="home" onload="cust1_set_active_checkbox();user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav">
+<ul>
+<li>
+<a title="" href="javascript:open_url('/config/config_general.html','','');">Configuration</a></li>
+<li>
+<a title="" href="javascript:open_url('/io/io_general.html','','');">In-/Outputs</a></li>
+<div id="topnav-custom-right"><li class="active">
+<a title="" href="javascript:open_url('/custom1/www/index.html','','');">Custom</a></li></div>
+<div id='topnav-logout-right'><li><input type='hidden' id='logout'><a href="javascript:user_logout();">Logout</a></input></li></div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: $$C_prodcut_name$$ ($$C_board_name$$)
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left">
+<ul class="level1">
+<li class="active"><a href="javascript:open_url('/custom1/www/index.html','','');">Status</a></li>
+</ul>
+</div>
+
+<div id="content">
+<h1>Status</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" NAME="C_cust1_converter_active" VALUE="$$C_cust1_converter_active$$" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+
+
+
+
+
+
+<!-- Begin Content --> 
+
+<div class="general">
+<div id="content-height">
+
+<br>
+<div id="content-left">Projekt Name</div>
+<div id="content-left">$$C_cust1_product_name$$</div><br>
+
+<div id="content-left">Firmware Version</div>
+<div id="content-left">V $$C_cust1_fw_rev$$</div><br><br>
+<br>
+</div>
+</div>
+<br>
+<br>
+<h1>Configuration</h1>
+<div class="general">
+<div id="content-height">
+
+<div id="content-left">Converter Active</div>
+<div id="content-left"><input type="checkbox" id="active_checkbox"/></div><br>
+
+<div id="content-left">IP Address DEDITEC RX-Module</div>
+<div id="content-left"><input type="text" NAME="C_cust1_ip_rx" VALUE="$$C_cust1_ip_rx$$" /></div><br>
+
+<div id="content-left">Interval</div>
+<div id="content-left"><input type="text" NAME="C_cust1_interval" VALUE="$$C_cust1_interval$$" /> msec</div><br>
+
+			<div id="update-rechts">
+               <a href="javascript:cust1_read_active_checkbox_and_save_config();"><img src="../images/buttons/update-transp.gif">
+			</div>
+
+			<div id="update-rechts">
+			<h4>Update parameter</h2>
+			</div></a>
+
+</div>
+</div>
+
+	  
+<!-- End Content -->
+
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<br>
+<br>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

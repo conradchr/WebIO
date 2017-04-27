@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/deditec_config_scripts.js"></script>
+<script type="text/javascript" src="/js/deditec_general.js"></script>
+<script type="text/javascript" src="/js/deditec_webrequest.js"></script>
+<script type="text/javascript" src="/custom1/www/js/deditec_m2m_functions.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+<link href="/custom1/www//style/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.special, leftNav.m2m.status, function(){load_config_params(page_type.m2m_status);Statistic_timer_start();});user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+
+<div id="content">
+<h1>M2M - Status</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+<!-- Begin Content --> 
+<div class="general">
+<div id="content-height">
+<!--============================================================================-->
+<!--============================================================================-->
+<center>	
+	<table border="0" width="600px" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="50px" class="statistics_headline">No.</td>
+			<td width="150px"class="statistics_headline" style="text-align: left;">Jobname</td>
+			<td width="50px" class="statistics_headline">Active</td>
+			<td width="50px" class="statistics_headline">Time next</td>	
+			<td width="50px" class="statistics_headline">Time min</td>	
+			<td width="50px" class="statistics_headline">Time max</td>
+			<td width="50px" class="statistics_headline">Count open</td>			
+			<td width="50px" class="statistics_headline">Count ok</td>
+			<td width="50px" class="statistics_headline">Comm. errors</td>
+			<td width="50px" class="statistics_headline">Delib errors</td>		
+			<td width="50px" class="statistics_headline">Readback errors</td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">1.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job0_name"></td>
+			<td width="50px" class="statistics"><input id="job0_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job0_timer"></label></td>	
+			<td width="50px" class="statistics"><label id="job0_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job0_max"></label></td>
+			<td width="50px" class="statistics"><label id="job0_count_open"></label></td>
+			<td width="50px" class="statistics"><label id="job0_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job0_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job0_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job0_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">2.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job1_name"></td>
+			<td width="50px" class="statistics"><input id="job1_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job1_timer"></label></td>
+			<td width="50px" class="statistics"><label id="job1_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job1_max"></label></td>
+			<td width="50px" class="statistics"><label id="job1_count_open"></label></td>
+			<td width="50px" class="statistics"><label id="job1_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job1_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job1_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job1_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">3.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job2_name"></td>
+			<td width="50px" class="statistics"><input id="job2_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job2_timer"></label></td>	
+			<td width="50px" class="statistics"><label id="job2_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job2_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job2_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job2_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job2_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job2_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job2_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">4.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job3_name"></td>
+			<td width="50px" class="statistics"><input id="job3_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job3_timer"></label></td>
+			<td width="50px" class="statistics"><label id="job3_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job3_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job3_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job3_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job3_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job3_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job3_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">5.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job4_name"></td>
+			<td width="50px" class="statistics"><input id="job4_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job4_timer"></label></td>
+			<td width="50px" class="statistics"><label id="job4_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job4_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job4_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job4_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job4_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job4_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job4_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">6.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job5_name"></td>
+			<td width="50px" class="statistics"><input id="job5_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job5_timer"></label></td>
+			<td width="50px" class="statistics"><label id="job5_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job5_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job5_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job5_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job5_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job5_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job5_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">7.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job6_name"></td>
+			<td width="50px" class="statistics"><input id="job6_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job6_timer"></label></td>	
+			<td width="50px" class="statistics"><label id="job6_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job6_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job6_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job6_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job6_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job6_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job6_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">8.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job7_name"></td>
+			<td width="50px" class="statistics"><input id="job7_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job7_timer"></label></td>	
+			<td width="50px" class="statistics"><label id="job7_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job7_max"></label></td>
+			<td width="50px" class="statistics"><label id="job7_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job7_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job7_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job7_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job7_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">9.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job8_name"></td>
+			<td width="50px" class="statistics"><input id="job8_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job8_timer"></label></td>
+			<td width="50px" class="statistics"><label id="job8_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job8_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job8_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job8_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job8_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job8_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job8_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">10.</td>
+			<td width="150px"class="statistics" style="text-align: left;"><label id="job9_name"></td>
+			<td width="50px" class="statistics"><input id="job9_activ" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="job9_timer"></label></td>	
+			<td width="50px" class="statistics"><label id="job9_min"></label></td>		
+			<td width="50px" class="statistics"><label id="job9_max"></label></td>	
+			<td width="50px" class="statistics"><label id="job9_count_open"></label></td>			
+			<td width="50px" class="statistics"><label id="job9_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="job9_count_error"></label></td>	
+			<td width="50px" class="statistics"><label id="job9_count_delib_error"></label></td>		
+			<td width="50px" class="statistics"><label id="job9_count_readback"></label></td>			
+		</tr>
+	</table>		
+</center><br>
+<h3>Destination</h3>
+<center>
+	<table border="0" width="600px" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="50px" class="statistics_headline">No.</td>
+			<td width="125px"class="statistics_headline" style="text-align: left;">Destinationname</td>
+			<td width="80px"class="statistics_headline" style="text-align: left;">IP-Address</td>
+			<td width="50px" class="statistics_headline">Open</td>
+			<td width="50px" class="statistics_headline">Time Min</td>		
+			<td width="50px" class="statistics_headline">Time Max</td>
+			<td width="50px" class="statistics_headline">Count open</td>
+			<td width="50px" class="statistics_headline">Count ok</td>
+			<td width="50px" class="statistics_headline">Comm. errors</td>
+			<td width="50px" class="statistics_headline">Delib errors</td>	
+			<td width="50px" class="statistics_headline">Readback errors</td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">1.</td>
+			<td width="125px"class="statistics" style="text-align: left;"><label id="dest0_name"></td>
+			<td width="80px"class="statistics" style="text-align: left;"><label id="dest0_ip"></td>
+			<td width="50px" class="statistics"><input id="dest0_open" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="dest0_min"></label></td>		
+			<td width="50px" class="statistics"><label id="dest0_max"></label></td>
+			<td width="50px" class="statistics"><label id="dest0_count_open"></label></td>	
+			<td width="50px" class="statistics"><label id="dest0_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="dest0_count_error"></label></td>
+			<td width="50px" class="statistics"><label id="dest0_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="dest0_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">2.</td>
+			<td width="125px"class="statistics" style="text-align: left;"><label id="dest1_name"></td>
+			<td width="80px"class="statistics" style="text-align: left;"><label id="dest1_ip"></td>
+			<td width="50px" class="statistics"><input id="dest1_open" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="dest1_min"></label></td>		
+			<td width="50px" class="statistics"><label id="dest1_max"></label></td>
+			<td width="50px" class="statistics"><label id="dest1_count_open"></label></td>	
+			<td width="50px" class="statistics"><label id="dest1_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="dest1_count_error"></label></td>
+			<td width="50px" class="statistics"><label id="dest1_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="dest1_count_readback"></label></td>		
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">3.</td>
+			<td width="125px"class="statistics" style="text-align: left;"><label id="dest2_name"></td>
+			<td width="80px"class="statistics" style="text-align: left;"><label id="dest2_ip"></td>
+			<td width="50px" class="statistics"><input id="dest2_open" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="dest2_min"></label></td>		
+			<td width="50px" class="statistics"><label id="dest2_max"></label></td>
+			<td width="50px" class="statistics"><label id="dest2_count_open"></label></td>	
+			<td width="50px" class="statistics"><label id="dest2_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="dest2_count_error"></label></td>
+			<td width="50px" class="statistics"><label id="dest2_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="dest2_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">4.</td>
+			<td width="125px"class="statistics" style="text-align: left;"><label id="dest3_name"></td>
+			<td width="80px"class="statistics" style="text-align: left;"><label id="dest3_ip"></td>
+			<td width="50px" class="statistics"><input id="dest3_open" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="dest3_min"></label></td>		
+			<td width="50px" class="statistics"><label id="dest3_max"></label></td>
+			<td width="50px" class="statistics"><label id="dest3_count_open"></label></td>	
+			<td width="50px" class="statistics"><label id="dest3_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="dest3_count_error"></label></td>
+			<td width="50px" class="statistics"><label id="dest3_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="dest3_count_readback"></label></td>			
+		</tr>
+		<tr>
+			<td width="50px" class="statistics">5.</td>
+			<td width="125px"class="statistics" style="text-align: left;"><label id="dest4_name"></td>
+			<td width="80px"class="statistics" style="text-align: left;"><label id="dest4_ip"></td>
+			<td width="50px" class="statistics"><input id="dest4_open" type="radio" disabled="false"></td>
+			<td width="50px" class="statistics"><label id="dest4_min"></label></td>		
+			<td width="50px" class="statistics"><label id="dest4_max"></label></td>
+			<td width="50px" class="statistics"><label id="dest4_count_open"></label></td>	
+			<td width="50px" class="statistics"><label id="dest4_count_ok"></label></td>
+			<td width="50px" class="statistics"><label id="dest4_count_error"></label></td>
+			<td width="50px" class="statistics"><label id="dest4_count_delib_error"></label></td>	
+			<td width="50px" class="statistics"><label id="dest4_count_readback"></label></td>			
+		</tr>
+	</table>
+</center>
+<!--============================================================================-->
+<!--============================================================================-->
+</div>
+</div>  
+<!-- End Content -->
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<br>
+<br>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

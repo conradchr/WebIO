@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_config_scripts.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript">
+var change = function(){
+	(is_STM2xx() ? hide() : show());
+};
+
+var show = function() {
+	$("#ro_eth_procs").show();
+	$("#content_spacer").css("height", "30");
+	//$("#reboot_btn").show();
+};
+
+var hide = function() {
+	$("#ro_eth_procs").hide();
+	$("#content_spacer").css("height", "275");
+	//$("#reboot_btn").hide();
+};
+
+$(function(){	
+	hide();
+});
+</script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.config, leftNav.config.status, function(){change();load_config_params(page_type.config_status);});user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1>Status</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+
+<!-- End FORM_START -->
+
+<!-- Begin Content --> 
+
+<div class="general">
+<div id="content-height">
+<div id="content-left">ETH-FW</div>
+<div id="content-left">V <label id="rev_ro_eth_fw"></label></div><br>
+
+<div id="ro_eth_procs">
+<div id="content-left">Exec-Srv</div>
+<div id="content-left">V <label id="rev_ro_exec_srv"></label></div><br>
+
+<div id="content-left">Key-Handler</div>
+<div id="content-left">V <label id="rev_key_handler"></label></div><br>
+
+<div id="content-left">BC-Srv</div>
+<div id="content-left">V <label id="rev_bc_server"></label></div><br>
+
+<div id="content-left">Web-Log-Access</div>
+<div id="content-left">V <label id="rev_weblogaccess"></label></div><br>
+
+<div id="content-left">NTP-Srv</div>
+<div id="content-left">V <label id="rev_ntp_server"></label></div><br>
+
+<div id="content-left">Parameter-Srv</div>
+<div id="content-left">V <label id="rev_parameter_server"></label></div><br>
+
+<div id="content-left">UsrMgr-Srv</div>
+<div id="content-left">V <label id="rev_user_manager"></label></div><br>
+
+<div id="content-left">Web-Request</div>
+<div id="content-left">V <label id="rev_parameter_webrequest"></label></div><br>
+</div>
+
+<div id="content_spacer"></div>
+
+<div id="reboot_btn">
+<div id="reboot-default-button">
+<input type="hidden" id="reboot" value="sd46/C$99">
+<a href="javascript:reboot();"><img src="../images/buttons/buttonreboot.gif">
+<h4>Reboot module</h4>
+</div>
+</div>
+<div id="reboot-default-button">
+<input type="hidden" id="set-default-with-ip" value="0">
+<a href="javascript:set_default_with_ip();"><img src="../images/buttons/update-transp.gif">
+<h4>Set to default<br>(reset all settings)</h4>
+</div>
+<div id="reboot-default-button">
+<input type="hidden" id="set-default-without-ip" value="0">
+<a href="javascript:set_default_without_ip();"><img src="../images/buttons/update-transp.gif">
+<h4>Set to default<br>(keep network settings)</h4>
+</div>
+<br>
+<br>
+<br>
+</div>
+</div>
+
+	  
+<!-- End Content -->
+
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

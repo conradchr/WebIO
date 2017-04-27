@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/deditec_control.js"></script>
+<script type="text/javascript">
+function GoToIndex(){
+	window.location.pathname = "index.html";
+}
+</script>
+<link href="style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"></a>
+
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top" style="height:15px;padding-top:0"></div>
+
+<div id="right">
+<div id="content" style="margin: 0; background-color:#fff">
+<h1>Alternate Index.html Demo</h1>
+<div class="border"></div>
+<img src="images/index_modul_grafik.png" style="float: left;"  width="450" alt="index_modul_grafik" />
+
+<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
+
+<div id="update-rechts">
+<a href="javascript:GoToIndex();"><img src="images/buttons/pfeil-rechts-transp.gif">
+<h4>Go to index.html</h4></a>
+</div>
+
+<br><br>
+
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<!-- End FORM_START -->
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

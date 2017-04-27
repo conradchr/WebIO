@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_config_scripts.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript">
+$(function()
+{
+	$("#ntp-server-active").change(function(){
+		if (!$(this).is(':checked'))
+		{
+			$("#ntp-server-validation").attr("disabled", true);
+		}
+		else
+		{
+			$("#ntp-server-validation").removeAttr("disabled");
+		}
+	});
+	
+	$("#ntp_server").hide();	
+});
+
+function Init()
+{
+	$("#ntp-server-active").change();
+	
+	if (is_STM2xx())
+	{
+		$("#ntp_server").show();
+	}
+}
+</script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+<link href="../style/deditec_controls.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.config, leftNav.config.ntp, function(){Init();load_config_params(page_type.config_network_time);});user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+
+<div id="content">
+<h1>Network time (NTP)</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="C_config-ntp-timezone-hour" value="" />
+<input type="hidden" id="C_config-ntp-active" value="" />
+<input type="hidden" id="C_config-ntp-timezone-active" value="" />
+<input type="hidden" id="session" />
+
+<!-- Begin Content -->
+ 
+<div class="general">
+
+<div id="content-height">
+<br>
+<h3>NTP Client</h3>
+<div id="content-left">NTP Active:</div>
+<label class="dt_switch">
+	<input type="checkbox" id='ntp-active' onchange="ntp_check_ntp_active()" />
+	<span></span>
+</label>
+<br>
+<div id="content-left">NTP IP Adress:</div>
+<input type="text" size="40" id="C_config-ntp-ip" value="" disabled />
+<br>
+<div id="content-left">NTP Port:</div>
+<input type="text" size="40" id="C_config-ntp-port" value="" disabled />
+<br>
+<div id="content-left">NTP Timezone Active:</div>
+<label class="dt_switch">
+	<input type="checkbox" id="ntp-timezone-active" onchange="ntp_check_ntp_timezone_active()" disabled />
+	<span></span>
+</label>
+<br>
+<div id="content-left">NTP Timezone Hour:</div>
+<select id="ntp-timezone-hour" onchange="ntp_write_to_value_attribut()" disabled >
+	<option name="-12">-12</option>
+	<option name="-11">-11</option>
+	<option name="-10">-10</option>
+	<option name="-9">-9</option>
+	<option name="-8">-8</option>
+	<option name="-7">-7</option>
+	<option name="-6">-6</option>
+	<option name="-5">-5</option>
+	<option name="-4">-4</option>
+	<option name="-3">-3</option>
+	<option name="-2">-2</option>
+	<option name="-1">-1</option>
+	<option name="0" selected>0</option>
+	<option name="+1">+1</option>
+	<option name="+2">+2</option>
+	<option name="+3">+3</option>
+	<option name="+4">+4</option>
+	<option name="+5">+5</option>
+	<option name="+6">+6</option>
+	<option name="+7">+7</option>
+	<option name="+8">+8</option>
+	<option name="+9">+9</option>
+	<option name="+10">+10</option>
+	<option name="+11">+11</option>
+	<option name="+12">+12</option>
+</select>
+
+<div id="ntp_server" disabled>
+<br>
+<h3>NTP Server</h3>
+<div id="content-left">NTP Server Active:</div>
+<label class="dt_switch">
+	<input type="checkbox" id='ntp-server-active' />
+	<span></span>
+</label>
+<br>
+<div id="content-left">NTP Server Time Validation:
+<a id="server_validation_infobox" class="box">
+<img src="/images/buttons/button_info-box.png" /><span>
+<img class="infobox_callout" src="/images/callout/callout_black.gif" />
+<label id="server_validation_infobox_text">
+If the validation is enabled, the NTP server will first validate the current time<br>before responding to any NTP request from other clients.<br>
+The server only responds, if the time is valid.<br><br>
+This prevents a distribution of an invalid time in the network.
+</label></span></a></div>
+<label class="dt_switch">
+	<input type="checkbox" id='ntp-server-validation' />
+	<span></span>
+</label>
+<br>
+</div>
+<br>
+<h3>Notice: Changes apply after board restart</h3>
+
+<div id="update-rechts">
+<a href="javascript:save_config_params(page_type.config_network_time);"><img src="../images/buttons/update-transp.gif">
+</div>
+
+
+<div id="update-rechts">
+<h4>Update parameter</h4></a>
+</div>
+
+</div>
+</div>
+
+<!-- End Content -->
+
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

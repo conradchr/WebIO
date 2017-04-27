@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>Oculus Smart Bedienung</title>
+<script type="text/javascript" src="/custom1/www/js/deditec_webrequest.js"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript">
+
+var IN_SW_FRONTKAMERA		= 0;
+var IN_SW_HECKKAMERA		= 1;
+var IN_SW_UEBERSICHTSKAMERA	= 2;
+var IN_SW_VIDEOKONVERTER	= 3;
+var IN_SW_PEPLINK			= 4;
+var IN_SW_REKORDER			= 5;
+var IN_REKORDER_STATUS		= 6;
+var IN_FRONTWISCHER			= 7;
+var IN_HECKWISCHER			= 8;
+
+var OUT_FRONTKAMERA			= 0;
+var OUT_HECKKAMERA			= 1;
+var OUT_UEBERSICHTSKAMERA	= 2;
+var OUT_VIDEOKONVERTER		= 3;
+var OUT_FW_STATUS			= 4;
+var OUT_FRONTWISCHER		= 8;
+var OUT_HECKWISCHER			= 9;
+var OUT_HECKHEIZUNG			= 10;
+var OUT_PEPLINK				= 11;
+var OUT_REKORDER			= 12;
+var OUT_REKORDER_SHUTDOWN   = 13;
+
+var global_session_time;
+var handle = 0;
+var do_readback;
+var di;
+
+$(function() {
+	content = "";
+	content += "<tr>";
+	content += "<td class='db400'>Batterie Restkapazität</td>";
+	content += "<td colspan='2' />";
+	//content += "<td><center><label id='restkapazitaet'></label></center></td>";
+	content += "<td><center><label id='bms_restkapazitaet'></label></center></td>";
+	content += "</tr>";
+	$("#content").append(content);
+	
+	content = "";
+	content += "<tr>";
+	content += "<td class='db400'>Batterie Stromverbrauch</td>";
+	content += "<td colspan='2' />";
+	//content += "<td><center><label id='stromverbrauch'></label></center></td>";
+	content += "<td><center><label id='bms_stromverbrauch'></label></center></td>";
+	content += "</tr>";
+	$("#content").append(content);
+
+	$("#content").append("<tr><td colspan='4'>&nbsp;</td></tr>");
+	
+	$("#content").append(CreateEntry("Frontkamera", 
+		"DapiDOSet1(handle, " + OUT_FRONTKAMERA + ", 1);", 
+		"DapiDOSet1(handle, " + OUT_FRONTKAMERA + ", 0);", 
+		'state_do'+OUT_FRONTKAMERA, 'display_do'+OUT_FRONTKAMERA
+	));
+	
+	$("#content").append(CreateEntry("Heckkamera Übersicht", 
+		"DapiDOSet1(handle, " + OUT_UEBERSICHTSKAMERA + ", 1);", 
+		"DapiDOSet1(handle, " + OUT_UEBERSICHTSKAMERA + ", 0);", 
+		'state_do'+OUT_UEBERSICHTSKAMERA, 'display_do'+OUT_UEBERSICHTSKAMERA
+	));
+	
+	$("#content").append(CreateEntry("Heckkamera Haupt", 
+		"DapiDOSet1(handle, " + OUT_HECKKAMERA + ", 1);", 
+		"DapiDOSet1(handle, " + OUT_HECKKAMERA + ", 0);", 
+		'state_do'+OUT_HECKKAMERA, 'display_do'+OUT_HECKKAMERA
+	));
+	
+	$("#content").append("<tr><td colspan='4'>&nbsp;</td></tr>");
+	
+	$("#content").append(CreateEntry("Videokonverter", 
+		"DapiDOSet1(handle, " + OUT_VIDEOKONVERTER + ", 1);", 
+		"DapiDOSet1(handle, " + OUT_VIDEOKONVERTER + ", 0);", 
+		'state_do'+OUT_VIDEOKONVERTER, 'display_do'+OUT_VIDEOKONVERTER
+	));
+	
+	$("#content").append(CreateEntry("Peplink", 
+		"DapiDOSet1(handle, " + OUT_PEPLINK + ", 1);", 
+		"DapiDOSet1(handle, " + OUT_PEPLINK + ", 0);", 
+		'state_do'+OUT_PEPLINK, 'display_do'+OUT_PEPLINK
+	));
+	
+	$("#content").append(CreateEntryCustom("Lokaler Rekorder", 
+		"webrequest_send(server_id.param_server, \"cust1_rekorder_trigger\", 1, webrequest_option.none, error_option.ignore);", "ON/OFF",
+		'state_di'+IN_REKORDER_STATUS, 'display_di'+IN_REKORDER_STATUS
+	));
+	
+	$("#content").append("<tr><td colspan='4'>&nbsp;</td></tr>");
+	
+	$("#content").append(CreateEntryCustom("Wischer Frontscheibe", 
+		"webrequest_send(server_id.param_server, \"cust1_frontwischer_trigger\", 1, webrequest_option.none, error_option.ignore);", "1x",
+		null, null
+	));
+
+	$("#content").append(CreateEntryCustom("Wischer Heckscheibe", 
+		"webrequest_send(server_id.param_server, \"cust1_heckwischer_trigger\", 1, webrequest_option.none, error_option.ignore);", "1x",
+		null, null
+	));	
+	
+	SetRearWindowHeating = function(val) {
+		content = "";
+		content += "webrequest_send(server_id.param_server, \"cust1_heckheizug_trigger\", 1, webrequest_option.none, error_option.ignore);";
+		content += "webrequest_send(server_id.param_server, \"cust1_heckheizug_value\", " + val + ", webrequest_option.none, error_option.ignore);";
+		return content;
+	};
+
+	$("#content").append(CreateEntry("Heckscheibenheizung (auto aus nach 10min)", 
+		SetRearWindowHeating(1),
+		SetRearWindowHeating(0),
+		'state_do'+OUT_HECKHEIZUNG, 'display_do'+OUT_HECKHEIZUNG
+	));	
+});
+
+function hex2asc(data)
+{
+	if (data<10)
+	{
+		return (data+48);
+	}
+	else
+	{
+		return(data-10+65);
+	}
+}
+
+function DapiDOSet1(handle, ch, data)
+{
+	// check set or clear bit
+	if ((data&1) != 0)
+	{
+		DapiDOSetBit32(handle, (ch & (~31)), (1 << (ch & 0x1f)));
+	}
+	else
+	{
+		DapiDOClrBit32(handle, (ch & (~31)), (1 << (ch & 0x1f)));
+	}
+}
+
+function DapiDOSetBit32(handle, ch, data)
+{
+	var addr = 0x80 | ((ch>>3) & 0x1f);
+	DapiWriteLong(handle, addr, data);
+}
+
+function DapiDOClrBit32(handle, ch, data)
+{
+	var addr = 0xa0 | ((ch>>3) & 0x1f);
+	DapiWriteLong(handle, addr, data);
+}
+
+function DapiWriteLong(handle, addr_long, value_long)
+{
+	var str_cmd = '';
+	var str_data = '';
+
+	str_cmd += 'A';		// ASCII mode
+	str_cmd += 'W'; 	// Write command
+	str_cmd += 'L'; 	// LONG length
+
+	str_cmd += String.fromCharCode(hex2asc((addr_long >> 12) & 15));
+	str_cmd += String.fromCharCode(hex2asc((addr_long >> 8 ) & 15));
+	str_cmd += String.fromCharCode(hex2asc((addr_long >> 4 ) & 15));
+	str_cmd += String.fromCharCode(hex2asc((addr_long      ) & 15));
+
+	str_data += String.fromCharCode(hex2asc((value_long >> 28) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 24) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 20) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 16) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 12) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 8 ) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long >> 4 ) & 15));
+	str_data += String.fromCharCode(hex2asc((value_long      ) & 15));
+
+	webrequest_send(server_id.ro_eth_fw, str_cmd, str_data, webrequest_option.none, error_option.ignore);
+}
+
+var AjaxLogin = function (){
+	$.ajax ({
+		url: "cgi-bin/weblogin",
+		type: "POST",
+		mimeType: "text/plain",
+		timeout: "5000",
+		data: {username: "admin", password: "admin"},
+		success: function (data) {
+			if (data != "OK") {
+				return;
+			}
+		}
+	});
+};
+	
+function GetStatus() 
+{
+	global_session_time++;
+	if ((global_session_time % 1000) == 0)
+	{
+		AjaxLogin();
+		global_session_time = 0;
+	}
+
+	webrequest_string = "";
+	webrequest_string += "ARW0000;do_readback;";
+	webrequest_string += "ARW0020;di;";
+	webrequest_string += "ARW0020;di;";
+	
+	callback = function() {
+		do_readback = $("#do_readback").val();
+		di = $("#di").val();
+	
+		for (i=0; i!=16; i++) 
+		{
+			SetControl("di"+i, ((di >> i) & 1));
+			SetControl("do"+i, ((do_readback >> i) & 1));
+		}
+	};
+	webrequest_get_and_put_to_field_multiple(server_id.ro_eth_fw, webrequest_string, webrequest_option.none, error_option.ignore, callback, true);
+	
+	
+	webrequest_string = "";
+	webrequest_string += "cust1_bms_restkapazitaet;bms_restkapazitaet;";
+	webrequest_string += "cust1_bms_stromverbrauch;bms_stromverbrauch;";
+	
+	callback = function() {
+		//$("#restkapazitaet").html( $("#bms_restkapazitaet").val() + " Ah" );
+		//$("#stromverbrauch").html( $("#bms_stromverbrauch").val() + " A" );
+		//$("#stromverbrauch").html( $("#bms_stromverbrauch").val() );
+		//$("#restkapazitaet").html( $("#bms_restkapazitaet").val() );
+	};
+	
+	webrequest_get_and_put_to_field_multiple(server_id.param_server, webrequest_string, webrequest_option.none, error_option.ignore/*, callback*/);
+}
+
+function SetControl(id, val)
+{
+	if (val == 1)
+	{
+		$("#state_" + id).css("background-color", "#00FF00");
+		$("#display_" + id).html("ON");
+	}
+	else
+	{
+		$("#state_" + id).css("background-color", "#FF0000");
+		$("#display_" + id).html("OFF");
+	}
+}
+
+function initial() 
+{
+	AjaxLogin();
+	global_session_time = 0;
+	GetStatus();
+	window.setInterval("GetStatus()", 1000);
+}
+
+function CreateEntryCustom(str_name, func, str_button, id_state, id_display)
+{
+	var entry = "";
+	
+	entry += "<tr>";
+	entry += "<td class='db400'>" + str_name + "</td>";
+	entry += "<td class='db200'><button onclick='" + func + "'>" + str_button + "</button></td>";
+	entry += "<td />";
+	if ((id_state == null) || (id_display == null))
+	{
+		entry += "<td />";
+	}
+	else
+	{
+		entry += "<td class='db100' id='" + id_state + "' ><div id='" + id_display + "'></div></td>";
+	}
+	entry += "</tr>";
+	
+	return entry;
+}
+
+function CreateEntry(str_name, func_on, func_off, id_state, id_display)
+{
+	var entry = "";
+	
+	entry += "<tr>";
+	entry += "<td class='db400'>" + str_name + "</td>";
+	entry += "<td class='db200'><button onclick='" + func_on + "'>ON</button></td>";
+	entry += "<td class='db200'><button onclick='" + func_off + "'>OFF</button></td>";
+	entry += "<td class='db100' id='" + id_state + "' ><div id='" + id_display + "'></div></td>";
+	entry += "</tr>";
+	
+	return entry;
+}
+</script>
+<style type="text/css">
+body { font-family:Arial,sans-serif; background-color:#C0C0C0; text-align=center;}
+table { border:1px; width:900px; text-align=center;}
+*.Headline { font-size:24px; color:#000000; background-color:#CFCFCF; font-weight:bold; vertical-align:top; text-align:center; border:3px solid #0A0CAE; }
+*.db033 { outline:2px solid #CCCCCC; width:20px; text-align:center; background-color:#C0C0C0;}
+*.db100 { outline:2px solid #CCCCCC; width:100px; text-align:center; background-color:#C0C0C0;}
+*.db200 { outline:2px solid #CCCCCC; width:100px; text-align:center; }
+*.db300 { outline:2px solid #CCCCCC; width:300px; text-align:left; }
+*.db400 { outline:2px solid #CCCCCC; width:300px; text-align:left; }
+*.newboxesswitch { border: 2px solid blue; background-color: #99CCFF; padding: 5px; text-align:center; }
+*.newboxes-2 { border:1px solid black; background-color:#CCCCCC;padding:5px; }
+button {width:75px; text-align:center;}
+</style>
+</head>
+<body onload="initial();">
+<table align="center">
+	<tr>
+		<td class="Headline">Oculus Smart Bedienung</td>
+	</tr>
+</table>
+<!--
+<table>
+	<tr>
+		<td width="200">
+			<div id="newboxesswitch" class="newboxesswitch">
+				<a href="/custom1/www/index.html">Schaltmodul</a>
+			</div>
+		</td>
+		<td width="200">
+			<div id="newboxesswitch" class="newboxesswitch">
+				<a href="/custom1/www/index_bat.html">Batterie-Management</a>
+			</div>
+		</td>			
+	</tr>
+</table>
+-->
+<table align="center">
+	<tr>
+		<td align="center">
+			<div class="newboxes-2" id="newboxes1-2" style="position:relative; top:-50; left:5; z-index:2;">
+				<table border="0" align="center">
+					<tr>
+						<td align="center">
+							<input type="hidden" id="do_readback" />
+							<input type="hidden" id="di" />
+							<!--<input type="hidden" id="bms_restkapazitaet" />-->
+							<!--<input type="hidden" id="bms_stromverbrauch" />-->
+							<table id='content' >
+								<tr>
+									<td class="tableborder1" colspan="3">&nbsp;</td>
+									<td class="db100" colspan="3">Zustand</td>
+								</tr>
+							</table>						
+						</td>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

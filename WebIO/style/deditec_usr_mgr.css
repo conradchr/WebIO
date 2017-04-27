@@ -1,0 +1,124 @@
+#userlist {
+	width: 100%;
+	position: static;
+}
+#userlist .user {
+	background-color: #eeeeee;
+	position: relative;
+	height: 30px;
+}
+#userlist .user.open {
+	background-color: #ffffff;
+}
+#userlist .username {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 5px 0 0 10px;
+	cursor: pointer;
+	font-weight: bold;
+}
+#userlist .terminator {
+	position: absolute;
+	right: 1px;
+	top: 2px;
+}
+#userlist .options {
+	background-color: #ffffff;
+	display: none;
+	position: relative;
+	padding: 5px 0 7px 20px;
+	border-top: 1px solid #cccccc;
+	line-height: 1.7em;
+}
+#userlist .options input {
+	left: 100px;
+	width: 460px;
+	right: 70px;
+	position: absolute;
+	padding: 0;
+}
+#userlist .options button {
+	right: 10px;
+	position: absolute;
+	margin-top: 0;
+}
+#userlist input, #userlist button {
+	padding: 2px 4px;
+	margin: 2px;
+	line-height: 1em;
+}
+
+#userlist .container {
+	border-top: 1px solid #000000;
+	border-left: 1px solid #000000;
+	border-right: 1px solid #000000;
+}
+
+#userlist .list {
+	border-bottom: 1px solid #000000;
+	background-color: #eeeeee;
+}
+#userlist .ctrl {
+}
+
+#userlist .disabled {
+	background-color: #dddddd;
+	color: #000000;
+}
+
+#userlist .spacer {
+	height: 7px;
+	display: block;
+	width: 100%;
+}
+
+#userlist .rightmgr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	right: 0;
+	height: 110px;
+}
+
+#userlist .rightmgr .leftbox, #userlist .rightmgr .rightbox {
+	width: 220px;
+	position: absolute;
+	background-color: #ffffff;
+}
+#userlist .rightmgr .leftbox {
+	left: 102px;
+}
+#userlist .rightmgr .rightbox {
+	left: 344px;
+}
+
+#userlist .rightmgr .title {
+	padding-left: 8px;
+}
+
+#userlist .rightmgr .leftscroll, #userlist .rightmgr .rightscroll {
+	border: 1px solid #000000;
+	width: 220px;
+	height: 100px;
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#userlist .rightmgr .left, #userlist .rightmgr .right {
+	cursor: pointer;
+	list-style-type: none;
+	width: 220px;
+}
+
+#userlist .rightmgr .left li, #userlist .rightmgr .right li {
+	border-bottom: 1px solid #cccccc;
+	padding-left: 7px;
+}
+
+#userlist .rightmgr .update {
+	position: absolute;
+	right: 0;
+}

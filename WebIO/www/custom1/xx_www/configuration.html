@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/deditec_config_scripts.js"></script>
+<script type="text/javascript" src="/js/deditec_general.js"></script>
+<script type="text/javascript" src="/js/deditec_webrequest.js"></script>
+<script type="text/javascript" src="/custom1/www/js/deditec_m2m_configuration.js"></script>
+<link href="/style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload="loadGUI(topNav.special, leftNav.m2m.config, function(){load_config_params(page_type.special);onLoad();});user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+
+<div id="content">
+<h1>M2M - Configuration</h1>
+<p>
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<input type="hidden" NAME="open_url" VALUE="main_config.html" />
+<input type="hidden" NAME="update_param" VALUE="1" />
+<input type="hidden" id="session" />
+<!-- End FORM_START -->
+<!-- Begin Content --> 
+<div class="general">
+<div id="content-height">
+<!--============================================================================-->
+<!--===config===================================================================-->
+<!--module config-->
+<input type="hidden" id="m2m_source_hidden_product_cfg_di" value="">
+<input type="hidden" id="m2m_source_hidden_product_cfg_ai" value="">
+<!--job names-->
+<input type="hidden" id="m2m_source0_hidden_name" value="">
+<input type="hidden" id="m2m_source1_hidden_name" value="">
+<input type="hidden" id="m2m_source2_hidden_name" value="">
+<input type="hidden" id="m2m_source3_hidden_name" value="">
+<input type="hidden" id="m2m_source4_hidden_name" value="">
+<input type="hidden" id="m2m_source5_hidden_name" value="">
+<input type="hidden" id="m2m_source6_hidden_name" value="">
+<input type="hidden" id="m2m_source7_hidden_name" value="">
+<input type="hidden" id="m2m_source8_hidden_name" value="">
+<input type="hidden" id="m2m_source9_hidden_name" value="">
+<!--job config-->
+<input type="hidden" id="m2m_source_hidden_active" value="">
+<input type="hidden" id="m2m_source_hidden_type" value="">
+<input type="hidden" id="m2m_source_hidden_par0" value="">
+<input type="hidden" id="m2m_source_hidden_par1" value="">
+<input type="hidden" id="m2m_source_hidden_par2" value="">
+<input type="hidden" id="m2m_source_hidden_par3" value="">
+<input type="hidden" id="m2m_source_hidden_par4" value="">
+<input type="hidden" id="m2m_source_hidden_par5" value="">
+<input type="hidden" id="m2m_source_hidden_par6" value="">
+<input type="hidden" id="m2m_source_hidden_par8" value="">
+<input type="hidden" id="m2m_source_hidden_par7" value="">
+<input type="hidden" id="m2m_source_hidden_par9" value="">
+<!--module config-->
+<input type="hidden" id="m2m_source_hidden_product_cfg_di" value="">
+<input type="hidden" id="m2m_source_hidden_product_cfg_ai" value="">
+<!--dest config-->
+<input type="hidden" id="m2m_dest_hidden_count" value="">
+<input type="hidden" id="m2m_dest0_hidden_name" value="">
+<input type="hidden" id="m2m_dest0_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest1_hidden_name" value="">
+<input type="hidden" id="m2m_dest1_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest2_hidden_name" value="">
+<input type="hidden" id="m2m_dest2_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest3_hidden_name" value="">
+<input type="hidden" id="m2m_dest3_hidden_ip_addr" value="">
+<input type="hidden" id="m2m_dest4_hidden_name" value="">
+<input type="hidden" id="m2m_dest4_hidden_ip_addr" value="">
+<!--============================================================================-->
+<!--===job-config===============================================================-->
+<label style="width: 120px; display: inline-block;">Selected job:</label>
+<select id="m2m_source_select_job" style="width: 150px;" onChange="change_job_id();" disabled="disabled"></select>
+<label style="margin-left: 120px;">Job name:</label>
+<input type="textfield" id="m2m_source_textfield_name" style="width: 100px;">
+<input type="button" id="m2m_source_button_name" value="Set name" style="width: 74px;" onClick="set_job_name();">
+
+<br><label style="width: 120px; display: inline-block;">Job active:</label>
+<input type="checkbox" id="m2m_source_checkbox_active" onclick="javascript: toggle_html_elements();" disabled="disabled">
+
+<div class="border_webinterface"></div>
+
+<label style="width: 120px; display: inline-block;">Send to IP-Address:</label>
+<select id="m2m_source_select_dest" style="width: 220px;"></select><br>
+
+<label style="width: 120px; display: inline-block;">Select data to send:</label>
+<select id="m2m_source_select_type" style="width: 150px;" onclick="javascript: toogle_ad_da_mode();"></select>
+
+<div class="border_webinterface"></div>
+
+<label style="width: 120px; display: inline-block;">Intervall active:</label>
+<input type="checkbox" id="m2m_source_checkbox_par6">
+&nbsp value:&nbsp 
+<input type="textfield" id="m2m_source_textfield_par0_value" style="width: 70px;">
+&nbsp *&nbsp
+<select id="m2m_source_select_par0_time_unit" style="width: 70px;">
+	<option value="3600000">hour</option>
+	<option value="60000">min</option>
+	<option value="1000">sec</option>
+	<option value="1">msec</option>
+</select>
+<label style="color: #a2a2a2; font-size: 9pt;">&nbsp e.g. 500*msec is the equivalent to every half second</label>
+
+<br><!--<label style="width: 120px; display: inline-block;">On change active:</label>
+<input type="checkbox" id="m2m_source_checkbox_par7">-->
+
+<!--<label style="width: 58px; display: inline-block; margin-left:73px;">tolerance:</label>
+<input type="textfield" id="m2m_source_textfield_par8" style="width: 70px;">
+<label style="color: #a2a2a2; font-size: 9pt;">&nbsp e.g. will be triggered when value exceeds tolerance</label>-->
+
+<div class="border_webinterface"></div>
+Input channels of sender<br>
+<label style="width: 120px; display: inline-block;">Start channel:</label>
+
+<select id="m2m_source_select_par1" style="width: 70px;" onChange="fill_end_chan_destination();">
+</select>
+
+<label style="width: 57px; display: inline-block; margin-left: 17px;">AD-Mode:</label>
+<select id="m2m_source_select_par4" style="width: 70px;">
+	<option value="0-5V">0-5V</option>
+	<option value="0-10V">0-10V</option>
+	<option value="0-20V">0-20V</option>
+	<option value="+-5V">+-5V</option>
+	<option value="+-10V">+-10V</option>
+	<option value="0-20mA">0-20mA</option>
+	<option value="4-20mA">4-20mA</option>
+	<option value="0-24mA">0-24mA</option>
+	<option value="0-50mA">0-50mA</option>
+</select>
+<br>
+<label style="width: 120px; display: inline-block;">End channel:</label>
+
+<select id="m2m_source_select_par2" style="width: 70px;" onChange="fill_end_chan_destination();">
+</select>
+
+<div class="border_webinterface"></div>
+Output channels of receiver<br>
+<label style="width: 120px; display: inline-block;">Start channel:</label>
+
+<select id="m2m_source_select_par3" style="width: 70px;" onChange="fill_end_chan_destination();">
+</select>
+
+<label style="width: 57px; display: inline-block; margin-left: 17px;">DA-Mode:</label>
+<select id="m2m_source_select_par5" style="width: 70px;">
+	<option value="0-5V">0-5V</option>
+	<option value="0-10V">0-10V</option>
+	<option value="+-2.5V">+-2.5V</option>
+	<option value="+-5V">+-5V</option>
+	<option value="+-10V">+-10V</option>
+	<option value="0-20mA">0-20mA</option>
+	<option value="4-20mA">4-20mA</option>
+	<option value="0-24mA">0-24mA</option>
+</select>
+
+<br>
+<label style="width: 120px; display: inline-block;">End channel:</label>
+<input type="textfield" id="m2m_source_textfield_par3_end" style="width: 70px;" disabled><br>
+<div class="border_webinterface"></div>
+<br>
+<div id="update-rechts">
+<a href="javascript:save_settings_to_cfg();"><img src="../images/buttons/update-transp.gif">
+<br><h4>Save parameter</h4></a>
+</div>
+<!--============================================================================-->
+<!--============================================================================-->
+</div>
+</div>  
+<!-- End Content -->
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<br>
+<br>
+<!-- End FORM_END -->
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_gui.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/delib.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_jquery_extended.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_converter.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<script type="text/javascript">
+function onLoad()
+{
+	webrequest_to_field(server_id.param_server, IO_TYPE.KEY[IO_TYPE.TYPE.STEPPER]+"0", "stepper_0_name", webrequest_option.is_background, error_option.only_alert);
+	webrequest_to_field(server_id.param_server, IO_TYPE.KEY[IO_TYPE.TYPE.STEPPER]+"1", "stepper_1_name", webrequest_option.is_background, error_option.only_alert);
+	
+	get_board_info();
+}
+</script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="home" onload ="loadGUI(topNav.io, leftNav.io.stepper, function(){init_stepper()});user_info_init();onLoad();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1>Stepper Motor</h1>
+<p>
+
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<div id="cfg"></div>
+<!-- End FORM_START -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+
+
+
+<!-- Begin Content -->
+<form  name = "form0"  action="" >
+
+<div class="inputoutputueberschrift">
+
+<table border="0">
+
+<tr>
+<td width="180px">
+<div>I/O Access to the module</div></td>
+<td><div><input type="radio" value="1" name="activity" id="activity">&nbsp;&nbsp;Activity</div></td>
+</tr>
+
+<td height="10px"></td>
+
+<tr>
+<td width="180px">
+<div id="inputoutputueberschrift-left">Status from modul:</div></td>
+<td><div id ="modul_status" ></div></td>
+</tr>
+
+<td height="20px"></td>
+
+</table>
+
+</div>
+</form>
+
+<form name="form1">
+
+<div class="stepper_motor_status">
+
+ <table border="0" >
+
+<tr>
+<td width="180"><div><h3>Status</h3></div></td>
+</tr>
+
+<td height="20" ></td>
+
+<tr>
+	<td width="180"><div></div></td>
+	<td width="180"><div><h3><label id="stepper_0_name" /></h3></div></td>
+	<td width="180"><div><h3><label id="stepper_1_name" /></h3></div></td>
+</tr>
+
+<td height="30" ></td>
+
+<tr>
+	<td width="180" ><div><h3>Pos</h3></div></td>
+	<td width="180" ><div id="position1"></div></td>
+	<td width="180" ><div id="position2"></div></td>
+</tr>
+
+<td height="30" ></td>
+
+<tr>
+	<td width="180" ><div><h3>CPU-Temp</h3></div></td>
+	<td width="180" ><div id="cpu_temp1" ></div></td>
+	<td width="180" ><div id="cpu_temp2" ></div></td>
+</tr>
+
+<td height="30" ></td>
+
+<tr>
+	<td width="180" ><div><h3>Motor Volt</h3></div></td>
+	<td width="180" ><div id="motor_volt1"></div></td>
+	<td width="180" ><div id="motor_volt2"></div></td>
+</tr>
+
+</table>
+</div>
+
+<BR>
+
+<div class="stepper_motor1" >
+
+<table border="0" >
+
+<tr id="stepper_motor1_name">
+<td width="180"><div><h3>Stepper 1</h3></div></td>
+</tr >
+
+<td height="20" ></td>
+
+<tr id="stepper_motor1_speed">
+<td width="180" ><div><h3>Set Speed</h3></div></td>
+<td width="100" ><input type="button" value="speed = 0"   onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_SET_FREQUENCY, 0, 		0, 0, 0)"></td>
+<td width="100" ><input type="button" value="speed = 10"  onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_SET_FREQUENCY, 10, 	0, 0, 0)"></td>
+<td width="100" ><input type="button" value="speed = 100" onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_SET_FREQUENCY, 100, 	0, 0, 0)"></td>
+<td width="50"  ><input type="button" value="speed = 500" onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_SET_FREQUENCY, 500, 	0, 0, 0)"></td>
+</tr>
+
+<td height="30" ></td>
+
+<tr  id="stepper_motor1_pos">
+<td width="180" ><div><h3>Go Position</h3></div></td>
+<td width="100" ><input type="button" value="pos = 0" 		onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_GO_POSITION, 0,     0, 0, 0)"></td>
+<td width="100" ><input type="button" value="pos = 3200" 	onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_GO_POSITION, 3200,  0, 0, 0)"></td>
+<td width="100" ><input type="button" value="pos = 64000" 	onclick="DapiStepperCommand(0, 0, DAPI_STEPPER_CMD_GO_POSITION, 64000, 0, 0, 0)"></td>
+</tr>
+
+</table> 
+</div>
+
+<BR>
+
+<div class="stepper_motor2">
+
+<table border="0" >
+<tr id="stepper_motor2_name">
+<td width="180"><div><h3>Stepper 2</h3></div></td>
+</tr >
+
+<td height="20" ></td>
+<tr id="stepper_motor2_speed">
+
+<td width="180" ><div><h3>Set Speed</h3></div></td>
+<td width="100" ><input type="button" value="speed = 0"   onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_SET_FREQUENCY, 0, 		0, 0, 0)"></td>
+<td width="100" ><input type="button" value="speed = 10"  onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_SET_FREQUENCY, 10, 	0, 0, 0)"></td>
+<td width="100" ><input type="button" value="speed = 100" onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_SET_FREQUENCY, 100, 	0, 0, 0)"></td>
+<td width="50"  ><input type="button" value="speed = 500" onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_SET_FREQUENCY, 500, 	0, 0, 0)"></td>
+
+</tr>
+
+<td height="30" ></td>
+
+<tr id="stepper_motor2_pos">
+
+<td width="180" ><div><h3>Go Position</h3></div></td>
+<td width="100" ><input type="button" value="pos = 0"     onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_GO_POSITION, 0, 	 0, 0, 0)"></td>
+<td width="100" ><input type="button" value="pos = 3200"  onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_GO_POSITION, 3200,  0, 0, 0)"></td>
+<td width="100" ><input type="button" value="pos = 64000" onclick="DapiStepperCommand(0, 1, DAPI_STEPPER_CMD_GO_POSITION, 64000, 0, 0, 0)"></td>
+
+</tr>
+
+</tr>
+</table>
+</div>
+
+
+<br>
+
+</form>
+<!-- End Content -->
+
+</FORM>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+

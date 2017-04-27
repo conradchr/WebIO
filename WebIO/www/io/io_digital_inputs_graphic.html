@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="text/javascript" language="javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_delib_access.js"></script>
+<script type="text/javascript" language="javascript" src="../js/jquery.flot.js"></script>
+<script type="text/javascript" language="javascript" src="../js/excanvas.js"></script>
+<script type="text/javascript" language="javascript" src="../js/excanvas.pack.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_webrequest.js"></script>
+<script type="text/javascript" language="javascript" src="../js/deditec_general.js"></script>
+<link href="../style/deditec_webcmd.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="home" onload ="get_board_info();navigator_show_hide();digital_inputs_graphic_init();user_info_init();">
+<div id="page">
+<div id="phone"></div>
+<a href="#" title="#"><div id="logo"></div></a>
+<div id="topnav"></div>
+<!--<li><a title="www.deditec.de" href="http://www.deditec.de">www.dedtec.de</a></li> //-->
+</ul>
+</div>
+<div id="area">
+	       	<div class="footer-green"></div>
+	        <div class="footer-blue"></div>
+	        <div class="footer-yellow"></div>
+	        <div class="footer-red"></div>
+ 
+</div>
+<div id="main">
+<div id="border-top">Product name: <label id="prodcut_name"></label> <font color="#353535">(<label id="board_name"></label>)</font>
+<div id="user-status">
+<label id="user_label"></label>&nbsp;<label id="user_value"></label>&nbsp;<label id="session_label"></label>&nbsp;<label id="session_value"></label>&nbsp;
+</div>
+</div>
+<div id="right">
+<div id="left"></div>
+<div id="content">
+<h1 >Digital Inputs Graphic</h1>
+<p>
+
+
+<!-- Begin FORM_START -->
+<FORM ACTION="/cgi-bin/webcmd" METHOD="post" name="/config/config_general.html">
+<div id="cfg"></div> 
+
+<!-- End FORM_START -->
+
+<!-- Begin FORM_END -->
+<input type="hidden" name="$X" value="" />
+</FORM>
+<!-- End FORM_END -->
+
+
+<!-- Begin Content -->
+<form  name = "form0"  action="" >
+
+<div class="inputoutputueberschrift">
+
+<table border="0">
+
+<tr>
+<td width="180px">
+<div>I/O Access to the module</div></td>
+<td><div><input type="radio" value="1" name="activity" id="activity">&nbsp;&nbsp;Activity</div></td>
+</tr>
+
+<td height="10px"></td>
+
+<tr>
+<td width="180px">
+<div id="inputoutputueberschrift-left">Status from modul:</div></td>
+<td><div id ="modul_status" ></div></td>
+</tr>
+
+<td height="20px"></td>
+
+</table>
+
+</div>
+</form>
+
+<form  name = "form1"  action="" >
+<div class="di-graphic">
+<table border="0">
+
+<tr>
+<td width="170px">Channel&nbsp;A</td>
+</tr>
+
+<tr id="di_channelA">
+<td>
+<select name="channel_auswahla">
+	<option id="a0" selected> </option>
+	<option id="a1"> </option>
+	<option id="a2"> </option>
+	<option id="a3"> </option>
+	<option id="a4"> </option>
+	<option id="a5"> </option>
+	<option id="a6"> </option>
+	<option id="a7"> </option>
+	<option id="a8"> </option>
+	<option id="a9"> </option>
+	<option id="a10"> </option>
+	<option id="a11"> </option>
+	<option id="a12"> </option>
+	<option id="a13"> </option>
+	<option id="a14"> </option>
+	<option id="a15"> </option>
+	<option id="a16"> </option>
+	<option id="a17"> </option>
+	<option id="a18"> </option>
+	<option id="a19"> </option>
+	<option id="a20"> </option>
+	<option id="a21"> </option>
+	<option id="a22"> </option>
+	<option id="a23"> </option>
+	<option id="a24"> </option>
+	<option id="a25"> </option>
+	<option id="a26"> </option>
+	<option id="a27"> </option>
+	<option id="a28"> </option>
+	<option id="a29"> </option>
+	<option id="a30"> </option>
+	<option id="a31"> </option>
+
+</select>
+</td>
+
+<td style="background-color:white;width:540px"><BR><div id="plotspace1" style="width:520px;height:100px"></div><br></td>
+</tr>
+
+<tr>
+<td>Channel B</td>
+</tr>
+
+<tr id="di_channelB">
+<td>
+<select name="channel_auswahlb">
+	<option id="b0"> </option>
+	<option id="b1" selected> </option>
+	<option id="b2"> </option>
+	<option id="b3"> </option>
+	<option id="b4"> </option>
+	<option id="b5"> </option>
+	<option id="b6"> </option>
+	<option id="b7"> </option>
+	<option id="b8"> </option>
+	<option id="b9"> </option>
+	<option id="b10"> </option>
+	<option id="b11"> </option>
+	<option id="b12"> </option>
+	<option id="b13"> </option>
+	<option id="b14"> </option>
+	<option id="b15"> </option>
+	<option id="b16"> </option>
+	<option id="b17"> </option>
+	<option id="b18"> </option>
+	<option id="b19"> </option>
+	<option id="b20"> </option>
+	<option id="b21"> </option>
+	<option id="b22"> </option>
+	<option id="b23"> </option>
+	<option id="b24"> </option>
+	<option id="b25"> </option>
+	<option id="b26"> </option>
+	<option id="b27"> </option>
+	<option id="b28"> </option>
+	<option id="b29"> </option>
+	<option id="b30"> </option>
+	<option id="b31"> </option>
+
+</select>
+</td>
+
+</td>
+<td style="background-color:white"><BR><div id="plotspace2" style="width:520px;height:100px"></div><br></td>
+</tr>
+
+
+<tr>
+<td>Channel&nbsp;C</td>
+</tr>
+
+<tr id="di_channelC">
+<td>
+<select name="channel_auswahlc">
+	<option id="c0"> </option>
+	<option id="c1"> </option>
+	<option id="c2" selected> </option>
+	<option id="c3"> </option>
+	<option id="c4"> </option>
+	<option id="c5"> </option>
+	<option id="c6"> </option>
+	<option id="c7"> </option>
+	<option id="c8"> </option>
+	<option id="c9"> </option>
+	<option id="c10"> </option>
+	<option id="c11"> </option>
+	<option id="c12"> </option>
+	<option id="c13"> </option>
+	<option id="c14"> </option>
+	<option id="c15"> </option>
+	<option id="c16"> </option>
+	<option id="c17"> </option>
+	<option id="c18"> </option>
+	<option id="c19"> </option>
+	<option id="c20"> </option>
+	<option id="c21"> </option>
+	<option id="c22"> </option>
+	<option id="c23"> </option>
+	<option id="c24"> </option>
+	<option id="c25"> </option>
+	<option id="c26"> </option>
+	<option id="c27"> </option>
+	<option id="c28"> </option>
+	<option id="c29"> </option>
+	<option id="c30"> </option>
+	<option id="c31"> </option>
+
+</select>
+</td>
+
+</td>
+<td style="background-color:white"><BR><div id="plotspace3" style="width:520px;height:100px"></div><br></td>
+</tr>
+
+
+<tr>
+<td>Channel D</td>
+</tr>
+
+<tr id="di_channelD">
+<td>
+<select name="channel_auswahld">
+	<option id="d0"> </option>
+	<option id="d1"> </option>
+	<option id="d2"> </option>
+	<option id="d3" selected> </option>
+	<option id="d4"> </option>
+	<option id="d5"> </option>
+	<option id="d6"> </option>
+	<option id="d7"> </option>
+	<option id="d8"> </option>
+	<option id="d9"> </option>
+	<option id="d10"> </option>
+	<option id="d11"> </option>
+	<option id="d12"> </option>
+	<option id="d13"> </option>
+	<option id="d14"> </option>
+	<option id="d15"> </option>
+	<option id="d16"> </option>
+	<option id="d17"> </option>
+	<option id="d18"> </option>
+	<option id="d19"> </option>
+	<option id="d20"> </option>
+	<option id="d21"> </option>
+	<option id="d22"> </option>
+	<option id="d23"> </option>
+	<option id="d24"> </option>
+	<option id="d25"> </option>
+	<option id="d26"> </option>
+	<option id="d27"> </option>
+	<option id="d28"> </option>
+	<option id="d29"> </option>
+	<option id="d30"> </option>
+	<option id="d31"> </option>
+	
+</select>
+</td>
+
+</td>
+<td style="background-color:white"><BR><div id="plotspace4" style="width:520px;height:100px"></div></td>
+</tr>
+
+</table>
+</div>
+<br>
+</form>
+</form>
+
+<!-- End Content -->
+
+</FORM>
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+
